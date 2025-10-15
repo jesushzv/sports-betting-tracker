@@ -1,103 +1,143 @@
-import Image from "next/image";
+"use client"
+
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { data: session, status } = useSession()
+  const router = useRouter()
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    if (session) {
+      router.push("/dashboard")
+    }
+  }, [session, router])
+
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-2 text-muted-foreground">Loading...</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+    )
+  }
+
+  return (
+    <div className="max-w-6xl mx-auto">
+      {/* Hero Section */}
+      <div className="text-center py-12">
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+          Track Your Sports Bets
+          <span className="text-primary block">Like a Pro</span>
+        </h1>
+        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          Professional and amateur sports bettors use BetTracker to maintain accurate records, 
+          track performance, and manage their bankroll effectively.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button size="lg" className="text-lg px-8">
+            Get Started Free
+          </Button>
+          <Button variant="outline" size="lg" className="text-lg px-8">
+            Learn More
+          </Button>
+        </div>
+      </div>
+
+      {/* Features Grid */}
+      <div className="grid md:grid-cols-3 gap-8 py-12">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              📊 Analytics & Insights
+              <Badge variant="secondary">Pro</Badge>
+            </CardTitle>
+            <CardDescription>
+              Track your performance with detailed analytics, win rates by sport, and profit/loss trends.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>• Win rate by sport and bet type</li>
+              <li>• Profit/loss tracking over time</li>
+              <li>• ROI calculations and trends</li>
+              <li>• Best and worst performing periods</li>
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              🎯 Pick Management
+              <Badge>Core</Badge>
+            </CardTitle>
+            <CardDescription>
+              Record and track all your betting picks with support for spreads, moneylines, totals, and parlays.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>• NFL, NBA, MLB, NHL, UFC support</li>
+              <li>• Spread, moneyline, over/under bets</li>
+              <li>• Parlay builder with odds calculation</li>
+              <li>• Automatic win/loss tracking</li>
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              💰 Bankroll Management
+              <Badge>Core</Badge>
+            </CardTitle>
+            <CardDescription>
+              Keep track of your bankroll with deposits, withdrawals, and transaction history.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>• Starting bankroll setup</li>
+              <li>• Deposit and withdrawal tracking</li>
+              <li>• Transaction history</li>
+              <li>• Bankroll growth visualization</li>
+            </ul>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Sports Support */}
+      <div className="py-12 text-center">
+        <h2 className="text-3xl font-bold mb-8">Supported Sports</h2>
+        <div className="flex flex-wrap justify-center gap-4">
+          {["NFL", "NBA", "MLB", "NHL", "UFC"].map((sport) => (
+            <Badge key={sport} variant="outline" className="text-lg px-6 py-2">
+              {sport}
+            </Badge>
+          ))}
+        </div>
+        <p className="text-muted-foreground mt-4">
+          More sports coming soon!
+        </p>
+      </div>
+
+      {/* CTA Section */}
+      <div className="py-12 text-center bg-muted/50 rounded-lg">
+        <h2 className="text-3xl font-bold mb-4">Ready to Start Tracking?</h2>
+        <p className="text-muted-foreground mb-6">
+          Join thousands of bettors who trust BetTracker to keep their records straight.
+        </p>
+        <Button size="lg" className="text-lg px-8">
+          Sign Up Free
+        </Button>
+      </div>
     </div>
-  );
+  )
 }

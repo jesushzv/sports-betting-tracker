@@ -1,36 +1,236 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BetTracker - Sports Betting Tracker
+
+A comprehensive web application for professional and amateur sports bettors to track their picks, record wins/losses, and monitor monetary performance across NFL, NBA, MLB, NHL, and UFC.
+
+## Features
+
+### Core Functionality
+- **Pick Management**: Record and track betting picks with support for spreads, moneylines, over/under, and parlays
+- **Performance Tracking**: Monitor win rates, profit/loss, and ROI across different sports and bet types
+- **Bankroll Management**: Track deposits, withdrawals, and transaction history
+- **Analytics Dashboard**: Detailed performance analysis with charts and insights
+
+### Supported Sports
+- NFL (National Football League)
+- NBA (National Basketball Association)
+- MLB (Major League Baseball)
+- NHL (National Hockey League)
+- UFC (Ultimate Fighting Championship)
+
+### Bet Types
+- Spread betting
+- Moneyline betting
+- Over/Under totals
+- Parlay betting (coming soon)
+
+## Tech Stack
+
+- **Frontend**: Next.js 14+ (App Router), React, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes with Node.js
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js with OAuth providers (Google, Discord)
+- **UI Components**: shadcn/ui
+- **Charts**: Recharts
+- **Deployment**: Vercel-ready
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+ 
+- npm or yarn
+- PostgreSQL database (local or cloud)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd sports-betting-tracker
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. **Set up environment variables**
+   
+   Copy `.env.example` to `.env` and fill in your values:
+   ```bash
+   cp .env.example .env
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+   Required environment variables:
+   ```env
+   # Database
+   DATABASE_URL="your-postgresql-connection-string"
+   
+   # NextAuth.js
+   NEXTAUTH_URL="http://localhost:3000"
+   NEXTAUTH_SECRET="your-secret-key"
+   
+   # OAuth Providers
+   GOOGLE_CLIENT_ID="your-google-client-id"
+   GOOGLE_CLIENT_SECRET="your-google-client-secret"
+   DISCORD_CLIENT_ID="your-discord-client-id"
+   DISCORD_CLIENT_SECRET="your-discord-client-secret"
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Set up the database**
+   ```bash
+   # Generate Prisma client
+   npx prisma generate
+   
+   # Run database migrations
+   npx prisma db push
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+6. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## OAuth Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Google OAuth
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing one
+3. Enable Google+ API
+4. Create OAuth 2.0 credentials
+5. Add authorized redirect URIs:
+   - `http://localhost:3000/api/auth/callback/google` (development)
+   - `https://yourdomain.com/api/auth/callback/google` (production)
+
+### Discord OAuth
+1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
+2. Create a new application
+3. Go to OAuth2 settings
+4. Add redirect URIs:
+   - `http://localhost:3000/api/auth/callback/discord` (development)
+   - `https://yourdomain.com/api/auth/callback/discord` (production)
+
+## Database Schema
+
+The application uses the following main entities:
+
+- **Users**: User accounts with authentication
+- **Picks**: Individual betting picks
+- **Parlays**: Multi-leg betting combinations
+- **ParlayLegs**: Links between parlays and individual picks
+- **BankrollHistory**: Transaction history for deposits, withdrawals, wins, and losses
+
+## API Endpoints
+
+### Picks
+- `GET /api/picks` - Get all picks for authenticated user
+- `POST /api/picks` - Create a new pick
+- `GET /api/picks/[id]` - Get specific pick
+- `PUT /api/picks/[id]` - Update pick (including settlement)
+- `DELETE /api/picks/[id]` - Delete pick
+
+### Statistics
+- `GET /api/stats` - Get user statistics and analytics data
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+2. **Deploy to Vercel**
+   - Connect your GitHub repository to Vercel
+   - Add environment variables in Vercel dashboard
+   - Deploy
+
+3. **Set up database**
+   - Use Vercel Postgres, Neon, or Supabase
+   - Update `DATABASE_URL` in Vercel environment variables
+   - Run migrations: `npx prisma db push`
+
+### Other Platforms
+
+The app can be deployed to any platform that supports Next.js:
+- Netlify
+- Railway
+- DigitalOcean App Platform
+- AWS Amplify
+
+## Usage
+
+### Adding Picks
+1. Sign in with Google or Discord
+2. Navigate to "Add Pick" from the dashboard
+3. Fill in the pick details:
+   - Sport (NFL, NBA, MLB, NHL, UFC)
+   - Bet type (Spread, Moneyline, Over/Under)
+   - Description (e.g., "Lakers -5.5")
+   - Odds (American format: -110, +150)
+   - Stake amount
+   - Game date and time
+4. The potential winnings are calculated automatically
+
+### Managing Picks
+1. View all picks on the "All Picks" page
+2. Filter by sport, bet type, or status
+3. Settle pending picks by marking them as Won, Lost, or Push
+4. View detailed analytics on the Analytics page
+
+### Analytics
+- Overview statistics (win rate, profit/loss, ROI)
+- Performance breakdown by sport and bet type
+- Visual charts showing trends and distributions
+- Bankroll history tracking
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Roadmap
+
+### Phase 1 (Current)
+- ✅ Core pick management
+- ✅ Basic analytics
+- ✅ User authentication
+- ✅ Dashboard
+
+### Phase 2 (Planned)
+- 🔄 Parlay system
+- 🔄 Bankroll management
+- 🔄 Profile settings
+- 🔄 Export functionality
+
+### Phase 3 (Future)
+- 📋 Social features (leaderboards, sharing)
+- 📋 Mobile app
+- 📋 Advanced analytics
+- 📋 Betting tips integration
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+For support, email support@bettracker.com or create an issue in the GitHub repository.
+
+## Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- UI components from [shadcn/ui](https://ui.shadcn.com/)
+- Charts powered by [Recharts](https://recharts.org/)
+- Authentication by [NextAuth.js](https://next-auth.js.org/)
+- Database management with [Prisma](https://prisma.io/)
