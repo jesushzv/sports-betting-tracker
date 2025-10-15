@@ -1,13 +1,26 @@
-"use client"
+'use client'
 
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 
 interface Stats {
   overview: {
@@ -45,8 +58,8 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login")
+    if (status === 'unauthenticated') {
+      router.push('/login')
     }
   }, [status, router])
 
@@ -58,24 +71,24 @@ export default function DashboardPage() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch("/api/stats")
+      const response = await fetch('/api/stats')
       if (response.ok) {
         const data = await response.json()
         setStats(data)
       }
     } catch (error) {
-      console.error("Error fetching stats:", error)
+      console.error('Error fetching stats:', error)
     } finally {
       setLoading(false)
     }
   }
 
-  if (status === "loading" || loading) {
+  if (status === 'loading' || loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-2 text-muted-foreground">Loading dashboard...</p>
+          <div className="border-primary mx-auto h-8 w-8 animate-spin rounded-full border-b-2"></div>
+          <p className="text-muted-foreground mt-2">Loading dashboard...</p>
         </div>
       </div>
     )
@@ -86,9 +99,9 @@ export default function DashboardPage() {
   }
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     }).format(amount)
   }
 
@@ -98,13 +111,13 @@ export default function DashboardPage() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "WON":
+      case 'WON':
         return <Badge className="bg-green-500">Won</Badge>
-      case "LOST":
+      case 'LOST':
         return <Badge variant="destructive">Lost</Badge>
-      case "PUSH":
+      case 'PUSH':
         return <Badge variant="secondary">Push</Badge>
-      case "PENDING":
+      case 'PENDING':
         return <Badge variant="outline">Pending</Badge>
       default:
         return <Badge variant="outline">{status}</Badge>
@@ -114,11 +127,11 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back, {session.user?.name || "User"}!
+            Welcome back, {session.user?.name || 'User'}!
           </p>
         </div>
         <div className="flex gap-2">
@@ -137,15 +150,19 @@ export default function DashboardPage() {
       {stats && (
         <>
           {/* Stats Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Picks</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Total Picks
+                </CardTitle>
                 <span className="text-2xl">🎯</span>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{stats.overview.totalPicks}</div>
-                <p className="text-xs text-muted-foreground">
+                <div className="text-2xl font-bold">
+                  {stats.overview.totalPicks}
+                </div>
+                <p className="text-muted-foreground text-xs">
                   {stats.overview.pendingPicks} pending
                 </p>
               </CardContent>
@@ -157,8 +174,10 @@ export default function DashboardPage() {
                 <span className="text-2xl">📊</span>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{stats.overview.winRate.toFixed(1)}%</div>
-                <p className="text-xs text-muted-foreground">
+                <div className="text-2xl font-bold">
+                  {stats.overview.winRate.toFixed(1)}%
+                </div>
+                <p className="text-muted-foreground text-xs">
                   {stats.overview.wonPicks}W - {stats.overview.lostPicks}L
                 </p>
               </CardContent>
@@ -166,14 +185,18 @@ export default function DashboardPage() {
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Net Profit</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Net Profit
+                </CardTitle>
                 <span className="text-2xl">💰</span>
               </CardHeader>
               <CardContent>
-                <div className={`text-2xl font-bold ${stats.overview.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                <div
+                  className={`text-2xl font-bold ${stats.overview.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}
+                >
                   {formatCurrency(stats.overview.netProfit)}
                 </div>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   {stats.overview.roi.toFixed(1)}% ROI
                 </p>
               </CardContent>
@@ -181,12 +204,16 @@ export default function DashboardPage() {
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Staked</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Total Staked
+                </CardTitle>
                 <span className="text-2xl">💸</span>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{formatCurrency(stats.overview.totalStaked)}</div>
-                <p className="text-xs text-muted-foreground">
+                <div className="text-2xl font-bold">
+                  {formatCurrency(stats.overview.totalStaked)}
+                </div>
+                <p className="text-muted-foreground text-xs">
                   {formatCurrency(stats.overview.totalWinnings)} won
                 </p>
               </CardContent>
@@ -215,21 +242,24 @@ export default function DashboardPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {stats.recentPicks.map((pick) => (
+                    {stats.recentPicks.map(pick => (
                       <TableRow key={pick.id}>
                         <TableCell>
                           <Badge variant="outline">{pick.sport}</Badge>
                         </TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{pick.description}</div>
-                            <div className="text-sm text-muted-foreground">
-                              {pick.betType.replace("_", " ")}
+                            <div className="font-medium">
+                              {pick.description}
+                            </div>
+                            <div className="text-muted-foreground text-sm">
+                              {pick.betType.replace('_', ' ')}
                             </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          {pick.odds > 0 ? "+" : ""}{pick.odds}
+                          {pick.odds > 0 ? '+' : ''}
+                          {pick.odds}
                         </TableCell>
                         <TableCell>{formatCurrency(pick.stake)}</TableCell>
                         <TableCell>{getStatusBadge(pick.status)}</TableCell>
@@ -239,7 +269,7 @@ export default function DashboardPage() {
                   </TableBody>
                 </Table>
               ) : (
-                <div className="text-center py-8">
+                <div className="py-8 text-center">
                   <p className="text-muted-foreground mb-4">No picks yet!</p>
                   <Button asChild>
                     <Link href="/picks/add">Add Your First Pick</Link>
@@ -250,22 +280,20 @@ export default function DashboardPage() {
           </Card>
 
           {/* Quick Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <Link href="/picks/add">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <span className="text-2xl">➕</span>
                     Add Pick
                   </CardTitle>
-                  <CardDescription>
-                    Record a new betting pick
-                  </CardDescription>
+                  <CardDescription>Record a new betting pick</CardDescription>
                 </CardHeader>
               </Link>
             </Card>
 
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <Link href="/parlays/builder">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -279,7 +307,7 @@ export default function DashboardPage() {
               </Link>
             </Card>
 
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <Link href="/picks">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -293,7 +321,7 @@ export default function DashboardPage() {
               </Link>
             </Card>
 
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <Link href="/parlays">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -307,7 +335,7 @@ export default function DashboardPage() {
               </Link>
             </Card>
 
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <Link href="/bankroll">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -321,7 +349,7 @@ export default function DashboardPage() {
               </Link>
             </Card>
 
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <Link href="/analytics">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -335,7 +363,7 @@ export default function DashboardPage() {
               </Link>
             </Card>
 
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <Link href="/profile">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">

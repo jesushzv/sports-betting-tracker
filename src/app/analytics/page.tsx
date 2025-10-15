@@ -1,10 +1,29 @@
-"use client"
+'use client'
 
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from "recharts"
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+} from 'recharts'
 
 interface AnalyticsData {
   overview: {
@@ -55,7 +74,6 @@ interface AnalyticsData {
   }>
 }
 
-
 export default function AnalyticsPage() {
   const { data: session, status } = useSession()
   const router = useRouter()
@@ -63,8 +81,8 @@ export default function AnalyticsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login")
+    if (status === 'unauthenticated') {
+      router.push('/login')
     }
   }, [status, router])
 
@@ -76,24 +94,24 @@ export default function AnalyticsPage() {
 
   const fetchAnalytics = async () => {
     try {
-      const response = await fetch("/api/stats")
+      const response = await fetch('/api/stats')
       if (response.ok) {
         const analyticsData = await response.json()
         setData(analyticsData)
       }
     } catch (error) {
-      console.error("Error fetching analytics:", error)
+      console.error('Error fetching analytics:', error)
     } finally {
       setLoading(false)
     }
   }
 
-  if (status === "loading" || loading) {
+  if (status === 'loading' || loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-2 text-muted-foreground">Loading analytics...</p>
+          <div className="border-primary mx-auto h-8 w-8 animate-spin rounded-full border-b-2"></div>
+          <p className="text-muted-foreground mt-2">Loading analytics...</p>
         </div>
       </div>
     )
@@ -104,9 +122,9 @@ export default function AnalyticsPage() {
   }
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     }).format(amount)
   }
 
@@ -116,7 +134,7 @@ export default function AnalyticsPage() {
 
   if (!data) {
     return (
-      <div className="text-center py-8">
+      <div className="py-8 text-center">
         <p className="text-muted-foreground">No analytics data available</p>
       </div>
     )
@@ -130,12 +148,11 @@ export default function AnalyticsPage() {
     netProfit: stat.netProfit,
   }))
 
-
   const winLossData = [
-    { name: "Won", value: data.overview.wonPicks, color: "#22c55e" },
-    { name: "Lost", value: data.overview.lostPicks, color: "#ef4444" },
-    { name: "Push", value: data.overview.pushPicks, color: "#6b7280" },
-    { name: "Pending", value: data.overview.pendingPicks, color: "#3b82f6" },
+    { name: 'Won', value: data.overview.wonPicks, color: '#22c55e' },
+    { name: 'Lost', value: data.overview.lostPicks, color: '#ef4444' },
+    { name: 'Push', value: data.overview.pushPicks, color: '#6b7280' },
+    { name: 'Pending', value: data.overview.pendingPicks, color: '#3b82f6' },
   ]
 
   return (
@@ -149,15 +166,17 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Win Rate</CardTitle>
             <span className="text-2xl">📊</span>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data.overview.winRate.toFixed(1)}%</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold">
+              {data.overview.winRate.toFixed(1)}%
+            </div>
+            <p className="text-muted-foreground text-xs">
               {data.overview.wonPicks}W - {data.overview.lostPicks}L
             </p>
           </CardContent>
@@ -169,10 +188,12 @@ export default function AnalyticsPage() {
             <span className="text-2xl">💰</span>
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${data.overview.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            <div
+              className={`text-2xl font-bold ${data.overview.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}
+            >
               {formatCurrency(data.overview.netProfit)}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               {data.overview.roi.toFixed(1)}% ROI
             </p>
           </CardContent>
@@ -185,7 +206,7 @@ export default function AnalyticsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{data.overview.totalPicks}</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               {data.overview.settledPicks} settled
             </p>
           </CardContent>
@@ -197,8 +218,10 @@ export default function AnalyticsPage() {
             <span className="text-2xl">💸</span>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(data.overview.totalStaked)}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold">
+              {formatCurrency(data.overview.totalStaked)}
+            </div>
+            <p className="text-muted-foreground text-xs">
               {formatCurrency(data.overview.totalWinnings)} won
             </p>
           </CardContent>
@@ -206,12 +229,14 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Win/Loss Pie Chart */}
         <Card>
           <CardHeader>
             <CardTitle>Pick Results</CardTitle>
-            <CardDescription>Distribution of your pick outcomes</CardDescription>
+            <CardDescription>
+              Distribution of your pick outcomes
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -257,7 +282,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Detailed Stats Tables */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Sport Performance */}
         <Card>
           <CardHeader>
@@ -266,19 +291,25 @@ export default function AnalyticsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {data.sportStats.map((stat) => (
-                <div key={stat.sport} className="flex items-center justify-between p-4 border rounded-lg">
+              {data.sportStats.map(stat => (
+                <div
+                  key={stat.sport}
+                  className="flex items-center justify-between rounded-lg border p-4"
+                >
                   <div>
                     <div className="font-medium">{stat.sport}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {stat.totalPicks} picks • {stat.winRate.toFixed(1)}% win rate
+                    <div className="text-muted-foreground text-sm">
+                      {stat.totalPicks} picks • {stat.winRate.toFixed(1)}% win
+                      rate
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className={`font-medium ${stat.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <div
+                      className={`font-medium ${stat.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}
+                    >
                       {formatCurrency(stat.netProfit)}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-muted-foreground text-sm">
                       {stat.roi.toFixed(1)}% ROI
                     </div>
                   </div>
@@ -296,19 +327,27 @@ export default function AnalyticsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {data.betTypeStats.map((stat) => (
-                <div key={stat.betType} className="flex items-center justify-between p-4 border rounded-lg">
+              {data.betTypeStats.map(stat => (
+                <div
+                  key={stat.betType}
+                  className="flex items-center justify-between rounded-lg border p-4"
+                >
                   <div>
-                    <div className="font-medium">{stat.betType.replace("_", " ")}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {stat.totalPicks} picks • {stat.winRate.toFixed(1)}% win rate
+                    <div className="font-medium">
+                      {stat.betType.replace('_', ' ')}
+                    </div>
+                    <div className="text-muted-foreground text-sm">
+                      {stat.totalPicks} picks • {stat.winRate.toFixed(1)}% win
+                      rate
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className={`font-medium ${stat.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <div
+                      className={`font-medium ${stat.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}
+                    >
                       {formatCurrency(stat.netProfit)}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-muted-foreground text-sm">
                       {stat.roi.toFixed(1)}% ROI
                     </div>
                   </div>
@@ -330,21 +369,21 @@ export default function AnalyticsPage() {
             <ResponsiveContainer width="100%" height={400}>
               <LineChart data={data.balanceHistory}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis 
-                  dataKey="date" 
-                  tickFormatter={formatDate}
+                <XAxis dataKey="date" tickFormatter={formatDate} />
+                <YAxis tickFormatter={value => `$${value}`} />
+                <Tooltip
+                  labelFormatter={value => formatDate(value)}
+                  formatter={value => [
+                    formatCurrency(Number(value)),
+                    'Balance',
+                  ]}
                 />
-                <YAxis tickFormatter={(value) => `$${value}`} />
-                <Tooltip 
-                  labelFormatter={(value) => formatDate(value)}
-                  formatter={(value) => [formatCurrency(Number(value)), "Balance"]}
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="balance" 
-                  stroke="#8884d8" 
+                <Line
+                  type="monotone"
+                  dataKey="balance"
+                  stroke="#8884d8"
                   strokeWidth={2}
-                  dot={{ fill: "#8884d8", strokeWidth: 2, r: 4 }}
+                  dot={{ fill: '#8884d8', strokeWidth: 2, r: 4 }}
                 />
               </LineChart>
             </ResponsiveContainer>

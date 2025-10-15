@@ -81,7 +81,7 @@ global.Request = class Request {
     this.headers = new Map(Object.entries(init?.headers || {}))
     this.body = init?.body
   }
-  
+
   async json() {
     return JSON.parse(this.body || '{}')
   }
@@ -94,7 +94,7 @@ global.Response = class Response {
     this.statusText = init?.statusText || 'OK'
     this.headers = new Map(Object.entries(init?.headers || {}))
   }
-  
+
   async json() {
     return JSON.parse(this.body || '{}')
   }
@@ -104,31 +104,31 @@ global.Headers = class Headers {
   constructor(init) {
     this.map = new Map(Object.entries(init || {}))
   }
-  
+
   get(name) {
     return this.map.get(name.toLowerCase())
   }
-  
+
   set(name, value) {
     this.map.set(name.toLowerCase(), value)
   }
-  
+
   has(name) {
     return this.map.has(name.toLowerCase())
   }
-  
+
   delete(name) {
     this.map.delete(name.toLowerCase())
   }
-  
+
   entries() {
     return this.map.entries()
   }
-  
+
   keys() {
     return this.map.keys()
   }
-  
+
   values() {
     return this.map.values()
   }

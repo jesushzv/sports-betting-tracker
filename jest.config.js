@@ -14,9 +14,7 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  transformIgnorePatterns: [
-    'node_modules/(?!(jose|openid-client|next-auth)/)',
-  ],
+  transformIgnorePatterns: ['node_modules/(?!(jose|openid-client|next-auth)/)'],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
@@ -30,6 +28,9 @@ const customJestConfig = {
       lines: 70,
       statements: 70,
     },
+  },
+  testEnvironmentOptions: {
+    url: 'http://localhost:3000',
   },
 }
 

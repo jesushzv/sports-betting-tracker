@@ -8,9 +8,9 @@ export async function GET() {
   } catch (error) {
     Sentry.captureException(error)
     return NextResponse.json(
-      { 
+      {
         message: 'Test error sent to Sentry',
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 200 }
     )

@@ -1,26 +1,38 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Badge } from '@/components/ui/badge'
 
 const SPORTS = [
-  { value: "NFL", label: "NFL" },
-  { value: "NBA", label: "NBA" },
-  { value: "MLB", label: "MLB" },
-  { value: "NHL", label: "NHL" },
-  { value: "UFC", label: "UFC" },
+  { value: 'NFL', label: 'NFL' },
+  { value: 'NBA', label: 'NBA' },
+  { value: 'MLB', label: 'MLB' },
+  { value: 'NHL', label: 'NHL' },
+  { value: 'UFC', label: 'UFC' },
 ]
 
 const BET_TYPES = [
-  { value: "SPREAD", label: "Spread" },
-  { value: "MONEYLINE", label: "Moneyline" },
-  { value: "OVER_UNDER", label: "Over/Under" },
+  { value: 'SPREAD', label: 'Spread' },
+  { value: 'MONEYLINE', label: 'Moneyline' },
+  { value: 'OVER_UNDER', label: 'Over/Under' },
 ]
 
 interface AddPickFormProps {
@@ -31,19 +43,19 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
-    sport: "",
-    betType: "",
-    description: "",
-    odds: "",
-    stake: "",
-    gameDate: "",
+    sport: '',
+    betType: '',
+    description: '',
+    odds: '',
+    stake: '',
+    gameDate: '',
   })
   const [potentialWin, setPotentialWin] = useState(0)
 
   const calculatePotentialWin = (odds: string, stake: string) => {
     const oddsNum = parseFloat(odds)
     const stakeNum = parseFloat(stake)
-    
+
     if (isNaN(oddsNum) || isNaN(stakeNum) || stakeNum <= 0) {
       setPotentialWin(0)
       return
@@ -57,7 +69,7 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
       // Negative odds: (100 / |odds|) * stake
       win = (100 / Math.abs(oddsNum)) * stakeNum
     }
-    
+
     setPotentialWin(win)
   }
 
@@ -66,10 +78,10 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
     setFormData(newFormData)
 
     // Recalculate potential win when odds or stake changes
-    if (field === "odds" || field === "stake") {
+    if (field === 'odds' || field === 'stake') {
       calculatePotentialWin(
-        field === "odds" ? value : newFormData.odds,
-        field === "stake" ? value : newFormData.stake
+        field === 'odds' ? value : newFormData.odds,
+        field === 'stake' ? value : newFormData.stake
       )
     }
   }
@@ -79,10 +91,10 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("/api/picks", {
-        method: "POST",
+      const response = await fetch('/api/picks', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...formData,
@@ -93,42 +105,42 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
 
       if (!response.ok) {
         const error = await response.json()
-        throw new Error(error.error || "Failed to create pick")
+        throw new Error(error.error || 'Failed to create pick')
       }
 
       // Reset form
       setFormData({
-        sport: "",
-        betType: "",
-        description: "",
-        odds: "",
-        stake: "",
-        gameDate: "",
+        sport: '',
+        betType: '',
+        description: '',
+        odds: '',
+        stake: '',
+        gameDate: '',
       })
       setPotentialWin(0)
 
       if (onSuccess) {
         onSuccess()
       } else {
-        router.push("/picks")
+        router.push('/picks')
       }
     } catch (error) {
-      console.error("Error creating pick:", error)
-      alert("Failed to create pick. Please try again.")
+      console.error('Error creating pick:', error)
+      alert('Failed to create pick. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
   }
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     }).format(amount)
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
         <CardTitle>Add New Pick</CardTitle>
         <CardDescription>
@@ -137,19 +149,19 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="sport">Sport</Label>
               <Select
                 value={formData.sport}
-                onValueChange={(value) => handleInputChange("sport", value)}
+                onValueChange={value => handleInputChange('sport', value)}
                 required
               >
                 <SelectTrigger id="sport">
                   <SelectValue placeholder="Select sport" />
                 </SelectTrigger>
                 <SelectContent>
-                  {SPORTS.map((sport) => (
+                  {SPORTS.map(sport => (
                     <SelectItem key={sport.value} value={sport.value}>
                       {sport.label}
                     </SelectItem>
@@ -162,14 +174,14 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
               <Label htmlFor="betType">Bet Type</Label>
               <Select
                 value={formData.betType}
-                onValueChange={(value) => handleInputChange("betType", value)}
+                onValueChange={value => handleInputChange('betType', value)}
                 required
               >
                 <SelectTrigger id="betType">
                   <SelectValue placeholder="Select bet type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {BET_TYPES.map((type) => (
+                  {BET_TYPES.map(type => (
                     <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>
@@ -185,12 +197,12 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
               id="description"
               placeholder="e.g., Lakers -5.5, Over 220.5, Chiefs ML"
               value={formData.description}
-              onChange={(e) => handleInputChange("description", e.target.value)}
+              onChange={e => handleInputChange('description', e.target.value)}
               required
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="odds">Odds (American)</Label>
               <Input
@@ -198,7 +210,7 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
                 type="number"
                 placeholder="e.g., -110, +150"
                 value={formData.odds}
-                onChange={(e) => handleInputChange("odds", e.target.value)}
+                onChange={e => handleInputChange('odds', e.target.value)}
                 required
               />
             </div>
@@ -212,14 +224,14 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
                 min="0.01"
                 placeholder="e.g., 50.00"
                 value={formData.stake}
-                onChange={(e) => handleInputChange("stake", e.target.value)}
+                onChange={e => handleInputChange('stake', e.target.value)}
                 required
               />
             </div>
           </div>
 
           {potentialWin > 0 && (
-            <div className="p-4 bg-muted rounded-lg">
+            <div className="bg-muted rounded-lg p-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Potential Winnings:</span>
                 <Badge variant="secondary" className="text-lg">
@@ -235,18 +247,14 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
               id="gameDate"
               type="datetime-local"
               value={formData.gameDate}
-              onChange={(e) => handleInputChange("gameDate", e.target.value)}
+              onChange={e => handleInputChange('gameDate', e.target.value)}
               required
             />
           </div>
 
           <div className="flex gap-4">
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex-1"
-            >
-              {isSubmitting ? "Creating..." : "Create Pick"}
+            <Button type="submit" disabled={isSubmitting} className="flex-1">
+              {isSubmitting ? 'Creating...' : 'Create Pick'}
             </Button>
             <Button
               type="button"

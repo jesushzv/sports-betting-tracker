@@ -1,596 +1,10 @@
-<testsuites id="" name="" tests="65" failures="65" skipped="0" errors="0" time="9.266414">
-<testsuite name="auth.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="chromium" tests="3" failures="3" skipped="0" time="0.005" errors="0">
-<testcase name="Authentication › should redirect to login when not authenticated" classname="auth.spec.ts" time="0.001">
-<failure message="auth.spec.ts:4:7 should redirect to login when not authenticated" type="FAILURE">
-<![CDATA[  [chromium] › auth.spec.ts:4:7 › Authentication › should redirect to login when not authenticated ─
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should show login form with OAuth providers" classname="auth.spec.ts" time="0.002">
-<failure message="auth.spec.ts:12:7 should show login form with OAuth providers" type="FAILURE">
-<![CDATA[  [chromium] › auth.spec.ts:12:7 › Authentication › should show login form with OAuth providers ────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should redirect to dashboard after successful login" classname="auth.spec.ts" time="0.002">
-<failure message="auth.spec.ts:19:7 should redirect to dashboard after successful login" type="FAILURE">
-<![CDATA[  [chromium] › auth.spec.ts:19:7 › Authentication › should redirect to dashboard after successful login 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-</testsuite>
-<testsuite name="picks.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="chromium" tests="10" failures="10" skipped="0" time="0.016" errors="0">
-<testcase name="Picks Management › should display dashboard with stats" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:9:7 should display dashboard with stats" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:9:7 › Picks Management › should display dashboard with stats ──────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should navigate to add pick page" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:19:7 should navigate to add pick page" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:19:7 › Picks Management › should navigate to add pick page ────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display add pick form with all fields" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:28:7 should display add pick form with all fields" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:28:7 › Picks Management › should display add pick form with all fields 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should calculate potential winnings" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:40:7 should calculate potential winnings" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:40:7 › Picks Management › should calculate potential winnings ─────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should navigate to all picks page" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:51:7 should navigate to all picks page" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:51:7 › Picks Management › should navigate to all picks page ───────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display filters on picks page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:60:7 should display filters on picks page" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:60:7 › Picks Management › should display filters on picks page ────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Analytics Page › should display analytics page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:72:7 should display analytics page" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:72:7 › Analytics Page › should display analytics page ─────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Smoke Tests › should load home page @smoke" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:82:7 should load home page @smoke" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:82:7 › Smoke Tests › should load home page @smoke ─────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Smoke Tests › should load login page @smoke" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:89:7 should load login page @smoke" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:89:7 › Smoke Tests › should load login page @smoke ────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Smoke Tests › should have working navigation @smoke" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:95:7 should have working navigation @smoke" type="FAILURE">
-<![CDATA[  [chromium] › picks.spec.ts:95:7 › Smoke Tests › should have working navigation @smoke ────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-</testsuite>
-<testsuite name="auth.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="firefox" tests="3" failures="3" skipped="0" time="0.004" errors="0">
-<testcase name="Authentication › should redirect to login when not authenticated" classname="auth.spec.ts" time="0.002">
-<failure message="auth.spec.ts:4:7 should redirect to login when not authenticated" type="FAILURE">
-<![CDATA[  [firefox] › auth.spec.ts:4:7 › Authentication › should redirect to login when not authenticated ──
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should show login form with OAuth providers" classname="auth.spec.ts" time="0.001">
-<failure message="auth.spec.ts:12:7 should show login form with OAuth providers" type="FAILURE">
-<![CDATA[  [firefox] › auth.spec.ts:12:7 › Authentication › should show login form with OAuth providers ─────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should redirect to dashboard after successful login" classname="auth.spec.ts" time="0.001">
-<failure message="auth.spec.ts:19:7 should redirect to dashboard after successful login" type="FAILURE">
-<![CDATA[  [firefox] › auth.spec.ts:19:7 › Authentication › should redirect to dashboard after successful login 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-</testsuite>
-<testsuite name="picks.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="firefox" tests="10" failures="10" skipped="0" time="0.015" errors="0">
-<testcase name="Picks Management › should display dashboard with stats" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:9:7 should display dashboard with stats" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:9:7 › Picks Management › should display dashboard with stats ───────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should navigate to add pick page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:19:7 should navigate to add pick page" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:19:7 › Picks Management › should navigate to add pick page ─────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display add pick form with all fields" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:28:7 should display add pick form with all fields" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:28:7 › Picks Management › should display add pick form with all fields ─
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should calculate potential winnings" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:40:7 should calculate potential winnings" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:40:7 › Picks Management › should calculate potential winnings ──────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should navigate to all picks page" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:51:7 should navigate to all picks page" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:51:7 › Picks Management › should navigate to all picks page ────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display filters on picks page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:60:7 should display filters on picks page" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:60:7 › Picks Management › should display filters on picks page ─────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Analytics Page › should display analytics page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:72:7 should display analytics page" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:72:7 › Analytics Page › should display analytics page ──────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Smoke Tests › should load home page @smoke" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:82:7 should load home page @smoke" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:82:7 › Smoke Tests › should load home page @smoke ──────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Smoke Tests › should load login page @smoke" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:89:7 should load login page @smoke" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:89:7 › Smoke Tests › should load login page @smoke ─────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Smoke Tests › should have working navigation @smoke" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:95:7 should have working navigation @smoke" type="FAILURE">
-<![CDATA[  [firefox] › picks.spec.ts:95:7 › Smoke Tests › should have working navigation @smoke ─────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-</testsuite>
-<testsuite name="auth.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="webkit" tests="3" failures="3" skipped="0" time="0.005" errors="0">
-<testcase name="Authentication › should redirect to login when not authenticated" classname="auth.spec.ts" time="0.002">
-<failure message="auth.spec.ts:4:7 should redirect to login when not authenticated" type="FAILURE">
-<![CDATA[  [webkit] › auth.spec.ts:4:7 › Authentication › should redirect to login when not authenticated ───
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should show login form with OAuth providers" classname="auth.spec.ts" time="0.001">
-<failure message="auth.spec.ts:12:7 should show login form with OAuth providers" type="FAILURE">
-<![CDATA[  [webkit] › auth.spec.ts:12:7 › Authentication › should show login form with OAuth providers ──────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should redirect to dashboard after successful login" classname="auth.spec.ts" time="0.002">
-<failure message="auth.spec.ts:19:7 should redirect to dashboard after successful login" type="FAILURE">
-<![CDATA[  [webkit] › auth.spec.ts:19:7 › Authentication › should redirect to dashboard after successful login 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-</testsuite>
-<testsuite name="picks.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="webkit" tests="10" failures="10" skipped="0" time="0.018" errors="0">
-<testcase name="Picks Management › should display dashboard with stats" classname="picks.spec.ts" time="0.003">
-<failure message="picks.spec.ts:9:7 should display dashboard with stats" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:9:7 › Picks Management › should display dashboard with stats ────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should navigate to add pick page" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:19:7 should navigate to add pick page" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:19:7 › Picks Management › should navigate to add pick page ──────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display add pick form with all fields" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:28:7 should display add pick form with all fields" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:28:7 › Picks Management › should display add pick form with all fields ──
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should calculate potential winnings" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:40:7 should calculate potential winnings" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:40:7 › Picks Management › should calculate potential winnings ───────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should navigate to all picks page" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:51:7 should navigate to all picks page" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:51:7 › Picks Management › should navigate to all picks page ─────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display filters on picks page" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:60:7 should display filters on picks page" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:60:7 › Picks Management › should display filters on picks page ──────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Analytics Page › should display analytics page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:72:7 should display analytics page" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:72:7 › Analytics Page › should display analytics page ───────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
+<testsuites id="" name="" tests="15" failures="15" skipped="0" errors="0" time="4.416969999999999">
+<testsuite name="picks.spec.ts" timestamp="2025-10-15T05:10:30.294Z" hostname="chromium" tests="3" failures="3" skipped="0" time="0.005" errors="0">
 <testcase name="Smoke Tests › should load home page @smoke" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:82:7 should load home page @smoke" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:82:7 › Smoke Tests › should load home page @smoke ───────────────────────
+<failure message="picks.spec.ts:129:7 should load home page @smoke" type="FAILURE">
+<![CDATA[  [chromium] › picks.spec.ts:129:7 › Smoke Tests › should load home page @smoke ────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
     ╔═════════════════════════════════════════════════════════════════════════╗
     ║ Looks like Playwright Test or Playwright was just installed or updated. ║
     ║ Please run the following command to download new browsers:              ║
@@ -603,10 +17,10 @@
 </failure>
 </testcase>
 <testcase name="Smoke Tests › should load login page @smoke" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:89:7 should load login page @smoke" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:89:7 › Smoke Tests › should load login page @smoke ──────────────────────
+<failure message="picks.spec.ts:136:7 should load login page @smoke" type="FAILURE">
+<![CDATA[  [chromium] › picks.spec.ts:136:7 › Smoke Tests › should load login page @smoke ───────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
     ╔═════════════════════════════════════════════════════════════════════════╗
     ║ Looks like Playwright Test or Playwright was just installed or updated. ║
     ║ Please run the following command to download new browsers:              ║
@@ -619,58 +33,8 @@
 </failure>
 </testcase>
 <testcase name="Smoke Tests › should have working navigation @smoke" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:95:7 should have working navigation @smoke" type="FAILURE">
-<![CDATA[  [webkit] › picks.spec.ts:95:7 › Smoke Tests › should have working navigation @smoke ──────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-</testsuite>
-<testsuite name="auth.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="Mobile Chrome" tests="3" failures="3" skipped="0" time="0.004" errors="0">
-<testcase name="Authentication › should redirect to login when not authenticated" classname="auth.spec.ts" time="0.001">
-<failure message="auth.spec.ts:4:7 should redirect to login when not authenticated" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › auth.spec.ts:4:7 › Authentication › should redirect to login when not authenticated 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should show login form with OAuth providers" classname="auth.spec.ts" time="0.002">
-<failure message="auth.spec.ts:12:7 should show login form with OAuth providers" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › auth.spec.ts:12:7 › Authentication › should show login form with OAuth providers 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should redirect to dashboard after successful login" classname="auth.spec.ts" time="0.001">
-<failure message="auth.spec.ts:19:7 should redirect to dashboard after successful login" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › auth.spec.ts:19:7 › Authentication › should redirect to dashboard after successful login 
+<failure message="picks.spec.ts:142:7 should have working navigation @smoke" type="FAILURE">
+<![CDATA[  [chromium] › picks.spec.ts:142:7 › Smoke Tests › should have working navigation @smoke ───────────
 
     Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -685,124 +49,12 @@
 </failure>
 </testcase>
 </testsuite>
-<testsuite name="picks.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="Mobile Chrome" tests="10" failures="10" skipped="0" time="0.017" errors="0">
-<testcase name="Picks Management › should display dashboard with stats" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:9:7 should display dashboard with stats" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:9:7 › Picks Management › should display dashboard with stats ─────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should navigate to add pick page" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:19:7 should navigate to add pick page" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:19:7 › Picks Management › should navigate to add pick page ───────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display add pick form with all fields" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:28:7 should display add pick form with all fields" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:28:7 › Picks Management › should display add pick form with all fields 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should calculate potential winnings" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:40:7 should calculate potential winnings" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:40:7 › Picks Management › should calculate potential winnings ────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should navigate to all picks page" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:51:7 should navigate to all picks page" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:51:7 › Picks Management › should navigate to all picks page ──────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display filters on picks page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:60:7 should display filters on picks page" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:60:7 › Picks Management › should display filters on picks page ───
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Analytics Page › should display analytics page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:72:7 should display analytics page" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:72:7 › Analytics Page › should display analytics page ────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
+<testsuite name="picks.spec.ts" timestamp="2025-10-15T05:10:30.294Z" hostname="firefox" tests="3" failures="3" skipped="0" time="0.003" errors="0">
 <testcase name="Smoke Tests › should load home page @smoke" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:82:7 should load home page @smoke" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:82:7 › Smoke Tests › should load home page @smoke ────────────────
+<failure message="picks.spec.ts:129:7 should load home page @smoke" type="FAILURE">
+<![CDATA[  [firefox] › picks.spec.ts:129:7 › Smoke Tests › should load home page @smoke ─────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
     ╔═════════════════════════════════════════════════════════════════════════╗
     ║ Looks like Playwright Test or Playwright was just installed or updated. ║
     ║ Please run the following command to download new browsers:              ║
@@ -814,11 +66,11 @@
 ]]>
 </failure>
 </testcase>
-<testcase name="Smoke Tests › should load login page @smoke" classname="picks.spec.ts" time="0.003">
-<failure message="picks.spec.ts:89:7 should load login page @smoke" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:89:7 › Smoke Tests › should load login page @smoke ───────────────
+<testcase name="Smoke Tests › should load login page @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:136:7 should load login page @smoke" type="FAILURE">
+<![CDATA[  [firefox] › picks.spec.ts:136:7 › Smoke Tests › should load login page @smoke ────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
     ╔═════════════════════════════════════════════════════════════════════════╗
     ║ Looks like Playwright Test or Playwright was just installed or updated. ║
     ║ Please run the following command to download new browsers:              ║
@@ -830,61 +82,11 @@
 ]]>
 </failure>
 </testcase>
-<testcase name="Smoke Tests › should have working navigation @smoke" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:95:7 should have working navigation @smoke" type="FAILURE">
-<![CDATA[  [Mobile Chrome] › picks.spec.ts:95:7 › Smoke Tests › should have working navigation @smoke ───────
+<testcase name="Smoke Tests › should have working navigation @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:142:7 should have working navigation @smoke" type="FAILURE">
+<![CDATA[  [firefox] › picks.spec.ts:142:7 › Smoke Tests › should have working navigation @smoke ────────────
 
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-</testsuite>
-<testsuite name="auth.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="Mobile Safari" tests="3" failures="3" skipped="0" time="0.004" errors="0">
-<testcase name="Authentication › should redirect to login when not authenticated" classname="auth.spec.ts" time="0.002">
-<failure message="auth.spec.ts:4:7 should redirect to login when not authenticated" type="FAILURE">
-<![CDATA[  [Mobile Safari] › auth.spec.ts:4:7 › Authentication › should redirect to login when not authenticated 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should show login form with OAuth providers" classname="auth.spec.ts" time="0.001">
-<failure message="auth.spec.ts:12:7 should show login form with OAuth providers" type="FAILURE">
-<![CDATA[  [Mobile Safari] › auth.spec.ts:12:7 › Authentication › should show login form with OAuth providers 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Authentication › should redirect to dashboard after successful login" classname="auth.spec.ts" time="0.001">
-<failure message="auth.spec.ts:19:7 should redirect to dashboard after successful login" type="FAILURE">
-<![CDATA[  [Mobile Safari] › auth.spec.ts:19:7 › Authentication › should redirect to dashboard after successful login 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/firefox-1495/firefox/Nightly.app/Contents/MacOS/firefox
     ╔═════════════════════════════════════════════════════════════════════════╗
     ║ Looks like Playwright Test or Playwright was just installed or updated. ║
     ║ Please run the following command to download new browsers:              ║
@@ -897,10 +99,10 @@
 </failure>
 </testcase>
 </testsuite>
-<testsuite name="picks.spec.ts" timestamp="2025-10-15T03:43:37.146Z" hostname="Mobile Safari" tests="10" failures="10" skipped="0" time="0.017" errors="0">
-<testcase name="Picks Management › should display dashboard with stats" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:9:7 should display dashboard with stats" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:9:7 › Picks Management › should display dashboard with stats ─────
+<testsuite name="picks.spec.ts" timestamp="2025-10-15T05:10:30.294Z" hostname="webkit" tests="3" failures="3" skipped="0" time="0.003" errors="0">
+<testcase name="Smoke Tests › should load home page @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:129:7 should load home page @smoke" type="FAILURE">
+<![CDATA[  [webkit] › picks.spec.ts:129:7 › Smoke Tests › should load home page @smoke ──────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -914,121 +116,9 @@
 ]]>
 </failure>
 </testcase>
-<testcase name="Picks Management › should navigate to add pick page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:19:7 should navigate to add pick page" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:19:7 › Picks Management › should navigate to add pick page ───────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display add pick form with all fields" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:28:7 should display add pick form with all fields" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:28:7 › Picks Management › should display add pick form with all fields 
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should calculate potential winnings" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:40:7 should calculate potential winnings" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:40:7 › Picks Management › should calculate potential winnings ────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should navigate to all picks page" classname="picks.spec.ts" time="0.004">
-<failure message="picks.spec.ts:51:7 should navigate to all picks page" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:51:7 › Picks Management › should navigate to all picks page ──────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Picks Management › should display filters on picks page" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:60:7 should display filters on picks page" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:60:7 › Picks Management › should display filters on picks page ───
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Analytics Page › should display analytics page" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:72:7 should display analytics page" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:72:7 › Analytics Page › should display analytics page ────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Smoke Tests › should load home page @smoke" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:82:7 should load home page @smoke" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:82:7 › Smoke Tests › should load home page @smoke ────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-]]>
-</failure>
-</testcase>
-<testcase name="Smoke Tests › should load login page @smoke" classname="picks.spec.ts" time="0.002">
-<failure message="picks.spec.ts:89:7 should load login page @smoke" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:89:7 › Smoke Tests › should load login page @smoke ───────────────
+<testcase name="Smoke Tests › should load login page @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:136:7 should load login page @smoke" type="FAILURE">
+<![CDATA[  [webkit] › picks.spec.ts:136:7 › Smoke Tests › should load login page @smoke ─────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -1043,8 +133,108 @@
 </failure>
 </testcase>
 <testcase name="Smoke Tests › should have working navigation @smoke" classname="picks.spec.ts" time="0.001">
-<failure message="picks.spec.ts:95:7 should have working navigation @smoke" type="FAILURE">
-<![CDATA[  [Mobile Safari] › picks.spec.ts:95:7 › Smoke Tests › should have working navigation @smoke ───────
+<failure message="picks.spec.ts:142:7 should have working navigation @smoke" type="FAILURE">
+<![CDATA[  [webkit] › picks.spec.ts:142:7 › Smoke Tests › should have working navigation @smoke ─────────────
+
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="picks.spec.ts" timestamp="2025-10-15T05:10:30.294Z" hostname="Mobile Chrome" tests="3" failures="3" skipped="0" time="0.003" errors="0">
+<testcase name="Smoke Tests › should load home page @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:129:7 should load home page @smoke" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › picks.spec.ts:129:7 › Smoke Tests › should load home page @smoke ───────────────
+
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="Smoke Tests › should load login page @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:136:7 should load login page @smoke" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › picks.spec.ts:136:7 › Smoke Tests › should load login page @smoke ──────────────
+
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="Smoke Tests › should have working navigation @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:142:7 should have working navigation @smoke" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › picks.spec.ts:142:7 › Smoke Tests › should have working navigation @smoke ──────
+
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/chromium_headless_shell-1194/chrome-mac/headless_shell
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="picks.spec.ts" timestamp="2025-10-15T05:10:30.294Z" hostname="Mobile Safari" tests="3" failures="3" skipped="0" time="0.003" errors="0">
+<testcase name="Smoke Tests › should load home page @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:129:7 should load home page @smoke" type="FAILURE">
+<![CDATA[  [Mobile Safari] › picks.spec.ts:129:7 › Smoke Tests › should load home page @smoke ───────────────
+
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="Smoke Tests › should load login page @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:136:7 should load login page @smoke" type="FAILURE">
+<![CDATA[  [Mobile Safari] › picks.spec.ts:136:7 › Smoke Tests › should load login page @smoke ──────────────
+
+    Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="Smoke Tests › should have working navigation @smoke" classname="picks.spec.ts" time="0.001">
+<failure message="picks.spec.ts:142:7 should have working navigation @smoke" type="FAILURE">
+<![CDATA[  [Mobile Safari] › picks.spec.ts:142:7 › Smoke Tests › should have working navigation @smoke ──────
 
     Error: browserType.launch: Executable doesn't exist at /Users/jh/Library/Caches/ms-playwright/webkit-2215/pw_run.sh
     ╔═════════════════════════════════════════════════════════════════════════╗

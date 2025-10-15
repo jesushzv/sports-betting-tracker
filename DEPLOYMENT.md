@@ -24,7 +24,7 @@ This guide covers deploying BetTracker to production using Vercel and Neon Postg
 # Development
 DATABASE_URL="postgresql://user:pass@localhost:5432/bettracker_dev"
 
-# Staging  
+# Staging
 DATABASE_URL="postgresql://user:pass@staging.neon.tech/bettracker_staging"
 
 # Production

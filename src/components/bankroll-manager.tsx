@@ -1,14 +1,33 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { Badge } from '@/components/ui/badge'
 
 interface BankrollTransaction {
   id: string
@@ -50,9 +69,9 @@ export function BankrollManager() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showAddTransaction, setShowAddTransaction] = useState(false)
   const [transactionForm, setTransactionForm] = useState({
-    amount: "",
-    type: "",
-    notes: "",
+    amount: '',
+    type: '',
+    notes: '',
   })
 
   useEffect(() => {
@@ -61,13 +80,13 @@ export function BankrollManager() {
 
   const fetchBankrollData = async () => {
     try {
-      const response = await fetch("/api/bankroll")
+      const response = await fetch('/api/bankroll')
       if (response.ok) {
         const data = await response.json()
         setBankrollData(data)
       }
     } catch (error) {
-      console.error("Error fetching bankroll data:", error)
+      console.error('Error fetching bankroll data:', error)
     } finally {
       setLoading(false)
     }
@@ -78,10 +97,10 @@ export function BankrollManager() {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("/api/bankroll", {
-        method: "POST",
+      const response = await fetch('/api/bankroll', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           amount: parseFloat(transactionForm.amount),
@@ -92,25 +111,25 @@ export function BankrollManager() {
 
       if (!response.ok) {
         const error = await response.json()
-        throw new Error(error.error || "Failed to create transaction")
+        throw new Error(error.error || 'Failed to create transaction')
       }
 
       // Reset form and refresh data
-      setTransactionForm({ amount: "", type: "", notes: "" })
+      setTransactionForm({ amount: '', type: '', notes: '' })
       setShowAddTransaction(false)
       await fetchBankrollData()
     } catch (error) {
-      console.error("Error creating transaction:", error)
-      alert("Failed to create transaction. Please try again.")
+      console.error('Error creating transaction:', error)
+      alert('Failed to create transaction. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
   }
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     }).format(amount)
   }
 
@@ -120,15 +139,15 @@ export function BankrollManager() {
 
   const getTransactionTypeBadge = (type: string) => {
     switch (type) {
-      case "DEPOSIT":
+      case 'DEPOSIT':
         return <Badge className="bg-green-500">Deposit</Badge>
-      case "WITHDRAWAL":
+      case 'WITHDRAWAL':
         return <Badge variant="destructive">Withdrawal</Badge>
-      case "WIN":
+      case 'WIN':
         return <Badge className="bg-green-500">Win</Badge>
-      case "LOSS":
+      case 'LOSS':
         return <Badge variant="destructive">Loss</Badge>
-      case "PUSH":
+      case 'PUSH':
         return <Badge variant="secondary">Push</Badge>
       default:
         return <Badge variant="outline">{type}</Badge>
@@ -137,10 +156,10 @@ export function BankrollManager() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-2 text-muted-foreground">Loading bankroll data...</p>
+          <div className="border-primary mx-auto h-8 w-8 animate-spin rounded-full border-b-2"></div>
+          <p className="text-muted-foreground mt-2">Loading bankroll data...</p>
         </div>
       </div>
     )
@@ -148,7 +167,7 @@ export function BankrollManager() {
 
   if (!bankrollData) {
     return (
-      <div className="text-center py-8">
+      <div className="py-8 text-center">
         <p className="text-muted-foreground">Failed to load bankroll data</p>
       </div>
     )
@@ -157,7 +176,7 @@ export function BankrollManager() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-3xl font-bold">Bankroll Management</h1>
           <p className="text-muted-foreground">
@@ -170,17 +189,21 @@ export function BankrollManager() {
       </div>
 
       {/* Balance Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Current Balance</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Current Balance
+            </CardTitle>
             <span className="text-2xl">💰</span>
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${bankrollData.currentBalance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            <div
+              className={`text-2xl font-bold ${bankrollData.currentBalance >= 0 ? 'text-green-600' : 'text-red-600'}`}
+            >
               {formatCurrency(bankrollData.currentBalance)}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               Total bankroll balance
             </p>
           </CardContent>
@@ -188,14 +211,16 @@ export function BankrollManager() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Starting Bankroll</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Starting Bankroll
+            </CardTitle>
             <span className="text-2xl">🏦</span>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {formatCurrency(bankrollData.startingBankroll)}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               Initial bankroll amount
             </p>
           </CardContent>
@@ -207,10 +232,14 @@ export function BankrollManager() {
             <span className="text-2xl">📈</span>
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${(bankrollData.currentBalance - bankrollData.startingBankroll) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {formatCurrency(bankrollData.currentBalance - bankrollData.startingBankroll)}
+            <div
+              className={`text-2xl font-bold ${bankrollData.currentBalance - bankrollData.startingBankroll >= 0 ? 'text-green-600' : 'text-red-600'}`}
+            >
+              {formatCurrency(
+                bankrollData.currentBalance - bankrollData.startingBankroll
+              )}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               Since starting bankroll
             </p>
           </CardContent>
@@ -222,13 +251,11 @@ export function BankrollManager() {
         <Card>
           <CardHeader>
             <CardTitle>Add Transaction</CardTitle>
-            <CardDescription>
-              Record a deposit or withdrawal
-            </CardDescription>
+            <CardDescription>Record a deposit or withdrawal</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmitTransaction} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="amount">Amount ($)</Label>
                   <Input
@@ -238,7 +265,12 @@ export function BankrollManager() {
                     min="0.01"
                     placeholder="e.g., 100.00"
                     value={transactionForm.amount}
-                    onChange={(e) => setTransactionForm(prev => ({ ...prev, amount: e.target.value }))}
+                    onChange={e =>
+                      setTransactionForm(prev => ({
+                        ...prev,
+                        amount: e.target.value,
+                      }))
+                    }
                     required
                   />
                 </div>
@@ -247,7 +279,9 @@ export function BankrollManager() {
                   <Label htmlFor="type">Transaction Type</Label>
                   <Select
                     value={transactionForm.type}
-                    onValueChange={(value) => setTransactionForm(prev => ({ ...prev, type: value }))}
+                    onValueChange={value =>
+                      setTransactionForm(prev => ({ ...prev, type: value }))
+                    }
                     required
                   >
                     <SelectTrigger>
@@ -267,7 +301,12 @@ export function BankrollManager() {
                   id="notes"
                   placeholder="e.g., Monthly deposit, Emergency withdrawal"
                   value={transactionForm.notes}
-                  onChange={(e) => setTransactionForm(prev => ({ ...prev, notes: e.target.value }))}
+                  onChange={e =>
+                    setTransactionForm(prev => ({
+                      ...prev,
+                      notes: e.target.value,
+                    }))
+                  }
                 />
               </div>
 
@@ -277,7 +316,7 @@ export function BankrollManager() {
                   disabled={isSubmitting}
                   className="flex-1"
                 >
-                  {isSubmitting ? "Adding..." : "Add Transaction"}
+                  {isSubmitting ? 'Adding...' : 'Add Transaction'}
                 </Button>
                 <Button
                   type="button"
@@ -314,37 +353,50 @@ export function BankrollManager() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {bankrollData.transactions.map((transaction) => (
+                {bankrollData.transactions.map(transaction => (
                   <TableRow key={transaction.id}>
                     <TableCell>{formatDate(transaction.timestamp)}</TableCell>
-                    <TableCell>{getTransactionTypeBadge(transaction.type)}</TableCell>
-                    <TableCell className={`font-medium ${transaction.amount >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {transaction.amount >= 0 ? "+" : ""}{formatCurrency(transaction.amount)}
+                    <TableCell>
+                      {getTransactionTypeBadge(transaction.type)}
                     </TableCell>
-                    <TableCell>{transaction.notes || "-"}</TableCell>
+                    <TableCell
+                      className={`font-medium ${transaction.amount >= 0 ? 'text-green-600' : 'text-red-600'}`}
+                    >
+                      {transaction.amount >= 0 ? '+' : ''}
+                      {formatCurrency(transaction.amount)}
+                    </TableCell>
+                    <TableCell>{transaction.notes || '-'}</TableCell>
                     <TableCell>
                       {transaction.pick && (
                         <div className="text-sm">
-                          <div className="font-medium">{transaction.pick.description}</div>
-                          <div className="text-muted-foreground">{transaction.pick.sport}</div>
+                          <div className="font-medium">
+                            {transaction.pick.description}
+                          </div>
+                          <div className="text-muted-foreground">
+                            {transaction.pick.sport}
+                          </div>
                         </div>
                       )}
                       {transaction.parlay && (
                         <div className="text-sm">
-                          <div className="font-medium">Parlay ({transaction.parlay.legs.length} legs)</div>
+                          <div className="font-medium">
+                            Parlay ({transaction.parlay.legs.length} legs)
+                          </div>
                           <div className="text-muted-foreground">
-                            {transaction.parlay.legs.map(leg => leg.pick.sport).join(", ")}
+                            {transaction.parlay.legs
+                              .map(leg => leg.pick.sport)
+                              .join(', ')}
                           </div>
                         </div>
                       )}
-                      {!transaction.pick && !transaction.parlay && "-"}
+                      {!transaction.pick && !transaction.parlay && '-'}
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           ) : (
-            <div className="text-center py-8">
+            <div className="py-8 text-center">
               <p className="text-muted-foreground mb-4">No transactions yet!</p>
               <Button onClick={() => setShowAddTransaction(true)}>
                 Add Your First Transaction

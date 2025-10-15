@@ -3,6 +3,7 @@
 ## 🏗️ Complete Tech Stack
 
 ### **Core Application**
+
 - **Frontend**: Next.js 15+ (App Router), React 19, TypeScript
 - **Styling**: Tailwind CSS with shadcn/ui components
 - **Backend**: Next.js API Routes with Node.js
@@ -10,12 +11,14 @@
 - **Authentication**: NextAuth.js with OAuth providers (Google, Discord)
 
 ### **Production Infrastructure**
+
 - **Deployment**: Vercel (serverless, auto-scaling)
 - **Database Hosting**: Neon PostgreSQL (serverless, auto-scaling)
 - **CDN**: Vercel Edge Network (global caching)
 - **Custom Domains**: Professional domain setup ready
 
 ### **Testing & Quality Assurance**
+
 - **Unit/Integration Tests**: Jest with Testing Library
 - **E2E Tests**: Playwright (cross-browser testing)
 - **Code Quality**: ESLint, Prettier, Husky, lint-staged
@@ -23,6 +26,7 @@
 - **Visual Regression**: Screenshot comparisons
 
 ### **CI/CD Pipeline**
+
 - **GitHub Actions**: Automated testing, linting, security scanning
 - **Multi-Environment**: Dev → Staging → Production
 - **Quality Gates**: All tests must pass before deployment
@@ -30,6 +34,7 @@
 - **Automated Deployment**: Vercel integration
 
 ### **Monitoring & Observability**
+
 - **Error Tracking**: Sentry (real-time error monitoring, performance tracking)
 - **Analytics**: Vercel Analytics (user behavior, Core Web Vitals)
 - **Performance**: Speed Insights (Core Web Vitals monitoring)
@@ -37,6 +42,7 @@
 - **Logging**: Structured logging with Winston (ready for implementation)
 
 ### **Security & Compliance**
+
 - **Security Headers**: Comprehensive security headers (CSP, HSTS, etc.)
 - **GDPR Compliance**: Privacy-focused configuration
 - **Input Validation**: Zod schema validation throughout
@@ -46,6 +52,7 @@
 ## 📊 Database Schema (Production-Ready)
 
 ### **Core Tables**
+
 1. **Users** - Authentication, profile, starting bankroll
 2. **Picks** - Individual betting picks with full tracking
 3. **Parlays** - Multi-leg betting combinations
@@ -53,6 +60,7 @@
 5. **BankrollHistory** - Complete transaction tracking
 
 ### **Production Optimizations**
+
 - **Indexing**: Optimized indexes for performance
 - **Connection Pooling**: Built-in with Neon
 - **Backups**: Automated daily backups
@@ -61,17 +69,20 @@
 ## 🚀 Deployment Architecture
 
 ### **Environment Strategy**
+
 - **Development**: Local development with hot reloading
 - **Staging**: Pre-production testing environment
 - **Production**: Live application with monitoring
 
 ### **Secrets Management**
+
 - **Vercel Environment Variables**: Secure secret storage
 - **GitHub Secrets**: CI/CD pipeline secrets
 - **Database Credentials**: Encrypted connection strings
 - **OAuth Credentials**: Secure provider configuration
 
 ### **Performance Optimizations**
+
 - **Serverless Functions**: Auto-scaling API endpoints
 - **Edge Caching**: Global CDN with Vercel
 - **Image Optimization**: Next.js Image component
@@ -81,6 +92,7 @@
 ## 🧪 Testing Strategy
 
 ### **Unit & Integration Tests**
+
 ```bash
 npm run test:unit        # Jest unit tests
 npm run test:integration # API integration tests
@@ -88,6 +100,7 @@ npm run test:coverage    # Coverage reports
 ```
 
 ### **E2E Testing**
+
 ```bash
 npm run test:e2e         # Playwright E2E tests
 npm run test:e2e:ui      # Interactive test runner
@@ -95,6 +108,7 @@ npm run test:smoke       # Critical path smoke tests
 ```
 
 ### **Quality Assurance**
+
 - **Linting**: ESLint with Next.js config
 - **Formatting**: Prettier with Tailwind plugin
 - **Pre-commit Hooks**: Husky with lint-staged
@@ -103,6 +117,7 @@ npm run test:smoke       # Critical path smoke tests
 ## 📈 Monitoring & Analytics
 
 ### **Error Tracking (Sentry)**
+
 - Real-time error monitoring
 - Performance monitoring
 - User session replay
@@ -110,12 +125,14 @@ npm run test:smoke       # Critical path smoke tests
 - Custom error boundaries
 
 ### **Analytics (Vercel)**
+
 - Core Web Vitals tracking
 - User behavior analytics
 - Performance insights
 - Custom event tracking
 
 ### **Health Monitoring**
+
 - API health check endpoint (`/api/health`)
 - Database connection monitoring
 - Function performance tracking
@@ -124,6 +141,7 @@ npm run test:smoke       # Critical path smoke tests
 ## 🔒 Security Implementation
 
 ### **Security Headers**
+
 ```json
 {
   "X-Frame-Options": "DENY",
@@ -134,12 +152,14 @@ npm run test:smoke       # Critical path smoke tests
 ```
 
 ### **Authentication Security**
+
 - OAuth 2.0 with Google and Discord
 - Secure session management
 - JWT token handling
 - CSRF protection
 
 ### **Data Protection**
+
 - Input validation with Zod schemas
 - SQL injection prevention (Prisma ORM)
 - XSS protection
@@ -148,6 +168,7 @@ npm run test:smoke       # Critical path smoke tests
 ## 🌍 Multi-Environment Setup
 
 ### **Development Environment**
+
 ```bash
 # Local development
 npm run dev              # Development server
@@ -156,12 +177,14 @@ npm run test:watch       # Test watcher
 ```
 
 ### **Staging Environment**
+
 - Automated deployment from `develop` branch
 - Staging database with test data
 - Full monitoring and analytics
 - Pre-production testing
 
 ### **Production Environment**
+
 - Automated deployment from `main` branch
 - Production database with real data
 - Full monitoring and alerting
@@ -170,6 +193,7 @@ npm run test:watch       # Test watcher
 ## 📋 CI/CD Pipeline
 
 ### **GitHub Actions Workflow**
+
 1. **Lint & Type Check** - Code quality validation
 2. **Unit Tests** - Jest test suite
 3. **Integration Tests** - API endpoint testing
@@ -181,6 +205,7 @@ npm run test:watch       # Test watcher
 9. **Smoke Tests** - Post-deployment verification
 
 ### **Quality Gates**
+
 - All tests must pass
 - Code coverage threshold (70%)
 - Security scan must pass
@@ -190,6 +215,7 @@ npm run test:watch       # Test watcher
 ## 🎯 Production Features
 
 ### **Core Application Features**
+
 - ✅ User authentication (Google, Discord)
 - ✅ Pick management (CRUD operations)
 - ✅ Analytics dashboard with charts
@@ -199,6 +225,7 @@ npm run test:watch       # Test watcher
 - ✅ Bet type support (Spread, Moneyline, Over/Under)
 
 ### **Production Infrastructure Features**
+
 - ✅ Automated testing suite
 - ✅ CI/CD pipeline
 - ✅ Error monitoring and alerting
@@ -209,6 +236,7 @@ npm run test:watch       # Test watcher
 - ✅ Health checks and monitoring
 
 ### **Developer Experience**
+
 - ✅ Hot reloading development
 - ✅ Type safety throughout
 - ✅ Automated code formatting
@@ -219,6 +247,7 @@ npm run test:watch       # Test watcher
 ## 🚀 Deployment Process
 
 ### **Initial Setup**
+
 1. **Create Neon Database** - Get connection string
 2. **Set up OAuth Providers** - Google and Discord apps
 3. **Configure Vercel Project** - Connect GitHub repository
@@ -227,6 +256,7 @@ npm run test:watch       # Test watcher
 6. **Deploy to Production** - Go live
 
 ### **Ongoing Deployment**
+
 - **Automatic**: Push to `main` branch triggers production deployment
 - **Staging**: Push to `develop` branch triggers staging deployment
 - **Manual**: Vercel dashboard for manual deployments
@@ -235,6 +265,7 @@ npm run test:watch       # Test watcher
 ## 📊 Performance Metrics
 
 ### **Target Performance**
+
 - **Lighthouse Score**: 90+ across all metrics
 - **Core Web Vitals**: All green
 - **API Response Time**: <200ms average
@@ -242,6 +273,7 @@ npm run test:watch       # Test watcher
 - **Uptime**: 99.9% availability
 
 ### **Monitoring Dashboard**
+
 - Real-time performance metrics
 - Error rate tracking
 - User engagement analytics
@@ -251,6 +283,7 @@ npm run test:watch       # Test watcher
 ## 🔧 Maintenance & Operations
 
 ### **Regular Maintenance**
+
 - **Database Backups**: Automated daily backups
 - **Security Updates**: Automated dependency updates
 - **Performance Monitoring**: Continuous monitoring
@@ -258,6 +291,7 @@ npm run test:watch       # Test watcher
 - **Analytics Review**: Weekly performance reviews
 
 ### **Scaling Considerations**
+
 - **Database Scaling**: Read replicas for analytics
 - **Function Scaling**: Automatic with Vercel
 - **CDN Scaling**: Global edge network
@@ -266,6 +300,7 @@ npm run test:watch       # Test watcher
 ## 📚 Documentation
 
 ### **Available Documentation**
+
 - **README.md** - Project overview and setup
 - **DEPLOYMENT.md** - Comprehensive deployment guide
 - **API Documentation** - API endpoint documentation
@@ -273,6 +308,7 @@ npm run test:watch       # Test watcher
 - **Security Guide** - Security best practices
 
 ### **Runbooks**
+
 - **Deployment Runbook** - Step-by-step deployment
 - **Incident Response** - Error handling procedures
 - **Performance Tuning** - Optimization guidelines
@@ -281,6 +317,7 @@ npm run test:watch       # Test watcher
 ## 🎉 Production Readiness Checklist
 
 ### **Infrastructure**
+
 - ✅ Vercel deployment configured
 - ✅ Neon database set up
 - ✅ OAuth providers configured
@@ -288,6 +325,7 @@ npm run test:watch       # Test watcher
 - ✅ SSL certificates valid
 
 ### **Monitoring**
+
 - ✅ Sentry error tracking active
 - ✅ Vercel Analytics enabled
 - ✅ Health checks implemented
@@ -295,6 +333,7 @@ npm run test:watch       # Test watcher
 - ✅ Alerting configured
 
 ### **Security**
+
 - ✅ Security headers implemented
 - ✅ Input validation active
 - ✅ Authentication secure
@@ -302,6 +341,7 @@ npm run test:watch       # Test watcher
 - ✅ GDPR compliance ready
 
 ### **Testing**
+
 - ✅ Unit tests passing
 - ✅ Integration tests passing
 - ✅ E2E tests passing
@@ -309,6 +349,7 @@ npm run test:watch       # Test watcher
 - ✅ Performance tests passing
 
 ### **Documentation**
+
 - ✅ Deployment guide complete
 - ✅ API documentation ready
 - ✅ Runbooks prepared

@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
-import { z } from "zod"
+import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '@/lib/auth'
+import { prisma } from '@/lib/prisma'
+import { z } from 'zod'
 
 type SessionUser = {
   id: string
@@ -12,23 +12,25 @@ type SessionUser = {
 }
 
 const createTransactionSchema = z.object({
-  amount: z.number().min(0.01, "Amount must be greater than 0"),
-  type: z.enum(["DEPOSIT", "WITHDRAWAL"]),
+  amount: z.number().min(0.01, 'Amount must be greater than 0'),
+  type: z.enum(['DEPOSIT', 'WITHDRAWAL']),
   notes: z.string().optional(),
 })
 
 // GET /api/bankroll - Get bankroll history and current balance
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions) as { user?: SessionUser } | null
+    const session = (await getServerSession(authOptions)) as {
+      user?: SessionUser
+    } | null
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const { searchParams } = new URL(request.url)
-    const type = searchParams.get("type")
-    const page = parseInt(searchParams.get("page") || "1")
-    const limit = parseInt(searchParams.get("limit") || "50")
+    const type = searchParams.get('type')
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '50')
     const skip = (page - 1) * limit
 
     const where: Record<string, unknown> = {
@@ -64,7 +66,7 @@ export async function GET(request: NextRequest) {
             },
           },
         },
-        orderBy: { timestamp: "desc" },
+        orderBy: { timestamp: 'desc' },
         skip,
         take: limit,
       }),
@@ -77,7 +79,10 @@ export async function GET(request: NextRequest) {
       select: { amount: true },
     })
 
-    const currentBalance = allTransactions.reduce((sum, transaction) => sum + transaction.amount, 0)
+    const currentBalance = allTransactions.reduce(
+      (sum, transaction) => sum + transaction.amount,
+      0
+    )
 
     // Get user's starting bankroll
     const user = await prisma.user.findUnique({
@@ -99,9 +104,9 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error) {
-    console.error("Error fetching bankroll:", error)
+    console.error('Error fetching bankroll:', error)
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }
@@ -110,26 +115,31 @@ export async function GET(request: NextRequest) {
 // POST /api/bankroll - Create a new bankroll transaction (deposit/withdrawal)
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions) as { user?: SessionUser } | null
+    const session = (await getServerSession(authOptions)) as {
+      user?: SessionUser
+    } | null
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const body = await request.json()
     const validatedData = createTransactionSchema.parse(body)
 
     // For withdrawals, check if user has sufficient balance
-    if (validatedData.type === "WITHDRAWAL") {
+    if (validatedData.type === 'WITHDRAWAL') {
       const allTransactions = await prisma.bankrollHistory.findMany({
         where: { userId: session.user.id },
         select: { amount: true },
       })
 
-      const currentBalance = allTransactions.reduce((sum, transaction) => sum + transaction.amount, 0)
+      const currentBalance = allTransactions.reduce(
+        (sum, transaction) => sum + transaction.amount,
+        0
+      )
 
       if (currentBalance < validatedData.amount) {
         return NextResponse.json(
-          { error: "Insufficient balance for withdrawal" },
+          { error: 'Insufficient balance for withdrawal' },
           { status: 400 }
         )
       }
@@ -139,9 +149,14 @@ export async function POST(request: NextRequest) {
     const transaction = await prisma.bankrollHistory.create({
       data: {
         userId: session.user.id,
-        amount: validatedData.type === "DEPOSIT" ? validatedData.amount : -validatedData.amount,
+        amount:
+          validatedData.type === 'DEPOSIT'
+            ? validatedData.amount
+            : -validatedData.amount,
         type: validatedData.type,
-        notes: validatedData.notes || `${validatedData.type.toLowerCase()} transaction`,
+        notes:
+          validatedData.notes ||
+          `${validatedData.type.toLowerCase()} transaction`,
       },
     })
 
@@ -149,13 +164,13 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.issues },
+        { error: 'Validation error', details: error.issues },
         { status: 400 }
       )
     }
-    console.error("Error creating bankroll transaction:", error)
+    console.error('Error creating bankroll transaction:', error)
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

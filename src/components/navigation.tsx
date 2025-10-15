@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { useSession, signIn, signOut } from "next-auth/react"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Link from 'next/link'
+import { useSession, signIn, signOut } from 'next-auth/react'
+import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,36 +11,51 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu'
 
 export function Navigation() {
   const { data: session } = useSession()
 
   return (
-    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="bg-background/95 supports-[backdrop-filter]:bg-background/60 border-b backdrop-blur">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-8">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded bg-primary"></div>
+              <div className="bg-primary h-8 w-8 rounded"></div>
               <span className="text-xl font-bold">BetTracker</span>
             </Link>
-            
+
             {session && (
-              <div className="hidden md:flex items-center space-x-6">
-                <Link href="/dashboard" className="text-sm font-medium hover:text-primary">
+              <div className="hidden items-center space-x-6 md:flex">
+                <Link
+                  href="/dashboard"
+                  className="hover:text-primary text-sm font-medium"
+                >
                   Dashboard
                 </Link>
-                <Link href="/picks" className="text-sm font-medium hover:text-primary">
+                <Link
+                  href="/picks"
+                  className="hover:text-primary text-sm font-medium"
+                >
                   All Picks
                 </Link>
-                <Link href="/parlays" className="text-sm font-medium hover:text-primary">
+                <Link
+                  href="/parlays"
+                  className="hover:text-primary text-sm font-medium"
+                >
                   Parlays
                 </Link>
-                <Link href="/bankroll" className="text-sm font-medium hover:text-primary">
+                <Link
+                  href="/bankroll"
+                  className="hover:text-primary text-sm font-medium"
+                >
                   Bankroll
                 </Link>
-                <Link href="/analytics" className="text-sm font-medium hover:text-primary">
+                <Link
+                  href="/analytics"
+                  className="hover:text-primary text-sm font-medium"
+                >
                   Analytics
                 </Link>
               </div>
@@ -51,11 +66,17 @@ export function Navigation() {
             {session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                  <Button
+                    variant="ghost"
+                    className="relative h-8 w-8 rounded-full"
+                  >
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={session.user?.image || ""} alt={session.user?.name || ""} />
+                      <AvatarImage
+                        src={session.user?.image || ''}
+                        alt={session.user?.name || ''}
+                      />
                       <AvatarFallback>
-                        {session.user?.name?.charAt(0) || "U"}
+                        {session.user?.name?.charAt(0) || 'U'}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -63,10 +84,10 @@ export function Navigation() {
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">
+                      <p className="text-sm leading-none font-medium">
                         {session.user?.name}
                       </p>
-                      <p className="text-xs leading-none text-muted-foreground">
+                      <p className="text-muted-foreground text-xs leading-none">
                         {session.user?.email}
                       </p>
                     </div>
@@ -82,9 +103,7 @@ export function Navigation() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button onClick={() => signIn()}>
-                Sign In
-              </Button>
+              <Button onClick={() => signIn()}>Sign In</Button>
             )}
           </div>
         </div>

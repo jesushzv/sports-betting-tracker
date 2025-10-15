@@ -26,10 +26,10 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    
+
     /* Take screenshot on failure */
     screenshot: 'only-on-failure',
-    
+
     /* Record video on failure */
     video: 'retain-on-failure',
   },
@@ -78,5 +78,22 @@ export default defineConfig({
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
+    env: {
+      DATABASE_URL:
+        process.env.DATABASE_URL ||
+        'postgresql://test:test@localhost:5432/test_db',
+      NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || 'test-secret-key',
+      NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'http://localhost:3000',
+      GOOGLE_CLIENT_ID:
+        process.env.GOOGLE_CLIENT_ID || 'dummy-google-client-id',
+      GOOGLE_CLIENT_SECRET:
+        process.env.GOOGLE_CLIENT_SECRET || 'dummy-google-client-secret',
+      DISCORD_CLIENT_ID:
+        process.env.DISCORD_CLIENT_ID || 'dummy-discord-client-id',
+      DISCORD_CLIENT_SECRET:
+        process.env.DISCORD_CLIENT_SECRET || 'dummy-discord-client-secret',
+      NEXT_PUBLIC_SENTRY_DSN:
+        process.env.NEXT_PUBLIC_SENTRY_DSN || 'https://dummy@sentry.io/dummy',
+    },
   },
 })

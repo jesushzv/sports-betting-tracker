@@ -1,15 +1,34 @@
-"use client"
+'use client'
 
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import { useEffect, useState, useCallback } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Label } from "@/components/ui/label"
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState, useCallback } from 'react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Label } from '@/components/ui/label'
 
 interface Pick {
   id: string
@@ -41,9 +60,9 @@ export default function PicksPage() {
   const [picks, setPicks] = useState<Pick[]>([])
   const [loading, setLoading] = useState(true)
   const [filters, setFilters] = useState({
-    sport: "",
-    betType: "",
-    status: "",
+    sport: '',
+    betType: '',
+    status: '',
     page: 1,
   })
   const [pagination, setPagination] = useState({
@@ -54,8 +73,8 @@ export default function PicksPage() {
   })
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login")
+    if (status === 'unauthenticated') {
+      router.push('/login')
     }
   }, [status, router])
 
@@ -63,11 +82,11 @@ export default function PicksPage() {
     try {
       setLoading(true)
       const params = new URLSearchParams()
-      if (filters.sport) params.append("sport", filters.sport)
-      if (filters.betType) params.append("betType", filters.betType)
-      if (filters.status) params.append("status", filters.status)
-      params.append("page", filters.page.toString())
-      params.append("limit", "20")
+      if (filters.sport) params.append('sport', filters.sport)
+      if (filters.betType) params.append('betType', filters.betType)
+      if (filters.status) params.append('status', filters.status)
+      params.append('page', filters.page.toString())
+      params.append('limit', '20')
 
       const response = await fetch(`/api/picks?${params}`)
       if (response.ok) {
@@ -76,7 +95,7 @@ export default function PicksPage() {
         setPagination(data.pagination)
       }
     } catch (error) {
-      console.error("Error fetching picks:", error)
+      console.error('Error fetching picks:', error)
     } finally {
       setLoading(false)
     }
@@ -99,9 +118,9 @@ export default function PicksPage() {
   const handleStatusUpdate = async (pickId: string, newStatus: string) => {
     try {
       const response = await fetch(`/api/picks/${pickId}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ status: newStatus }),
       })
@@ -110,20 +129,20 @@ export default function PicksPage() {
         // Refresh the picks list
         fetchPicks()
       } else {
-        alert("Failed to update pick status")
+        alert('Failed to update pick status')
       }
     } catch (error) {
-      console.error("Error updating pick:", error)
-      alert("Failed to update pick status")
+      console.error('Error updating pick:', error)
+      alert('Failed to update pick status')
     }
   }
 
-  if (status === "loading" || loading) {
+  if (status === 'loading' || loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-2 text-muted-foreground">Loading picks...</p>
+          <div className="border-primary mx-auto h-8 w-8 animate-spin rounded-full border-b-2"></div>
+          <p className="text-muted-foreground mt-2">Loading picks...</p>
         </div>
       </div>
     )
@@ -134,9 +153,9 @@ export default function PicksPage() {
   }
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     }).format(amount)
   }
 
@@ -146,13 +165,13 @@ export default function PicksPage() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "WON":
+      case 'WON':
         return <Badge className="bg-green-500">Won</Badge>
-      case "LOST":
+      case 'LOST':
         return <Badge variant="destructive">Lost</Badge>
-      case "PUSH":
+      case 'PUSH':
         return <Badge variant="secondary">Push</Badge>
-      case "PENDING":
+      case 'PENDING':
         return <Badge variant="outline">Pending</Badge>
       default:
         return <Badge variant="outline">{status}</Badge>
@@ -162,7 +181,7 @@ export default function PicksPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-3xl font-bold">All Picks</h1>
           <p className="text-muted-foreground">
@@ -180,12 +199,12 @@ export default function PicksPage() {
           <CardTitle>Filters</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <div className="space-y-2">
               <Label>Sport</Label>
               <Select
                 value={filters.sport}
-                onValueChange={(value) => handleFilterChange("sport", value)}
+                onValueChange={value => handleFilterChange('sport', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="All sports" />
@@ -205,7 +224,7 @@ export default function PicksPage() {
               <Label>Bet Type</Label>
               <Select
                 value={filters.betType}
-                onValueChange={(value) => handleFilterChange("betType", value)}
+                onValueChange={value => handleFilterChange('betType', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="All types" />
@@ -223,7 +242,7 @@ export default function PicksPage() {
               <Label>Status</Label>
               <Select
                 value={filters.status}
-                onValueChange={(value) => handleFilterChange("status", value)}
+                onValueChange={value => handleFilterChange('status', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="All statuses" />
@@ -241,7 +260,9 @@ export default function PicksPage() {
             <div className="flex items-end">
               <Button
                 variant="outline"
-                onClick={() => setFilters({ sport: "", betType: "", status: "", page: 1 })}
+                onClick={() =>
+                  setFilters({ sport: '', betType: '', status: '', page: 1 })
+                }
                 className="w-full"
               >
                 Clear Filters
@@ -276,7 +297,7 @@ export default function PicksPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {picks.map((pick) => (
+                  {picks.map(pick => (
                     <TableRow key={pick.id}>
                       <TableCell>
                         <Badge variant="outline">{pick.sport}</Badge>
@@ -284,25 +305,26 @@ export default function PicksPage() {
                       <TableCell>
                         <div>
                           <div className="font-medium">{pick.description}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {pick.betType.replace("_", " ")}
+                          <div className="text-muted-foreground text-sm">
+                            {pick.betType.replace('_', ' ')}
                           </div>
                         </div>
                       </TableCell>
                       <TableCell>
-                        {pick.odds > 0 ? "+" : ""}{pick.odds}
+                        {pick.odds > 0 ? '+' : ''}
+                        {pick.odds}
                       </TableCell>
                       <TableCell>{formatCurrency(pick.stake)}</TableCell>
                       <TableCell>{formatCurrency(pick.potentialWin)}</TableCell>
                       <TableCell>{getStatusBadge(pick.status)}</TableCell>
                       <TableCell>{formatDate(pick.gameDate)}</TableCell>
                       <TableCell>
-                        {pick.status === "PENDING" && (
+                        {pick.status === 'PENDING' && (
                           <div className="flex gap-1">
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() => handleStatusUpdate(pick.id, "WON")}
+                              onClick={() => handleStatusUpdate(pick.id, 'WON')}
                               className="text-green-600 hover:text-green-700"
                             >
                               Win
@@ -310,7 +332,9 @@ export default function PicksPage() {
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() => handleStatusUpdate(pick.id, "LOST")}
+                              onClick={() =>
+                                handleStatusUpdate(pick.id, 'LOST')
+                              }
                               className="text-red-600 hover:text-red-700"
                             >
                               Loss
@@ -318,7 +342,9 @@ export default function PicksPage() {
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() => handleStatusUpdate(pick.id, "PUSH")}
+                              onClick={() =>
+                                handleStatusUpdate(pick.id, 'PUSH')
+                              }
                             >
                               Push
                             </Button>
@@ -332,8 +358,8 @@ export default function PicksPage() {
 
               {/* Pagination */}
               {pagination.pages > 1 && (
-                <div className="flex items-center justify-between mt-6">
-                  <div className="text-sm text-muted-foreground">
+                <div className="mt-6 flex items-center justify-between">
+                  <div className="text-muted-foreground text-sm">
                     Page {pagination.page} of {pagination.pages}
                   </div>
                   <div className="flex gap-2">
@@ -358,7 +384,7 @@ export default function PicksPage() {
               )}
             </>
           ) : (
-            <div className="text-center py-8">
+            <div className="py-8 text-center">
               <p className="text-muted-foreground mb-4">No picks found!</p>
               <Button asChild>
                 <Link href="/picks/add">Add Your First Pick</Link>

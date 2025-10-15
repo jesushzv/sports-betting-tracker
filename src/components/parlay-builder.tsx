@@ -1,13 +1,26 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 interface Pick {
   id: string
@@ -30,7 +43,7 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
   const router = useRouter()
   const [availablePicks, setAvailablePicks] = useState<Pick[]>([])
   const [selectedPicks, setSelectedPicks] = useState<Pick[]>([])
-  const [stake, setStake] = useState("")
+  const [stake, setStake] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
 
@@ -40,13 +53,13 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
 
   const fetchAvailablePicks = async () => {
     try {
-      const response = await fetch("/api/picks?status=PENDING&limit=100")
+      const response = await fetch('/api/picks?status=PENDING&limit=100')
       if (response.ok) {
         const data = await response.json()
         setAvailablePicks(data.picks)
       }
     } catch (error) {
-      console.error("Error fetching picks:", error)
+      console.error('Error fetching picks:', error)
     } finally {
       setLoading(false)
     }
@@ -68,16 +81,14 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
 
     let totalOdds = 1
     for (const pick of selectedPicks) {
-      const decimalOdds = pick.odds > 0 
-        ? (pick.odds / 100) + 1 
-        : (100 / Math.abs(pick.odds)) + 1
+      const decimalOdds =
+        pick.odds > 0 ? pick.odds / 100 + 1 : 100 / Math.abs(pick.odds) + 1
       totalOdds *= decimalOdds
     }
 
     // Convert back to American odds
-    const americanOdds = totalOdds >= 2 
-      ? (totalOdds - 1) * 100 
-      : -100 / (totalOdds - 1)
+    const americanOdds =
+      totalOdds >= 2 ? (totalOdds - 1) * 100 : -100 / (totalOdds - 1)
 
     return americanOdds
   }
@@ -90,9 +101,8 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
 
     let totalOdds = 1
     for (const pick of selectedPicks) {
-      const decimalOdds = pick.odds > 0 
-        ? (pick.odds / 100) + 1 
-        : (100 / Math.abs(pick.odds)) + 1
+      const decimalOdds =
+        pick.odds > 0 ? pick.odds / 100 + 1 : 100 / Math.abs(pick.odds) + 1
       totalOdds *= decimalOdds
     }
 
@@ -101,24 +111,24 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (selectedPicks.length < 2) {
-      alert("Please select at least 2 picks for your parlay")
+      alert('Please select at least 2 picks for your parlay')
       return
     }
 
     if (!stake || parseFloat(stake) <= 0) {
-      alert("Please enter a valid stake amount")
+      alert('Please enter a valid stake amount')
       return
     }
 
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("/api/parlays", {
-        method: "POST",
+      const response = await fetch('/api/parlays', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           pickIds: selectedPicks.map(pick => pick.id),
@@ -128,30 +138,30 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
 
       if (!response.ok) {
         const error = await response.json()
-        throw new Error(error.error || "Failed to create parlay")
+        throw new Error(error.error || 'Failed to create parlay')
       }
 
       // Reset form
       setSelectedPicks([])
-      setStake("")
+      setStake('')
 
       if (onSuccess) {
         onSuccess()
       } else {
-        router.push("/parlays")
+        router.push('/parlays')
       }
     } catch (error) {
-      console.error("Error creating parlay:", error)
-      alert("Failed to create parlay. Please try again.")
+      console.error('Error creating parlay:', error)
+      alert('Failed to create parlay. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
   }
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     }).format(amount)
   }
 
@@ -161,17 +171,17 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-2 text-muted-foreground">Loading picks...</p>
+          <div className="border-primary mx-auto h-8 w-8 animate-spin rounded-full border-b-2"></div>
+          <p className="text-muted-foreground mt-2">Loading picks...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
+    <div className="mx-auto max-w-6xl space-y-8">
       <div>
         <h1 className="text-3xl font-bold">Parlay Builder</h1>
         <p className="text-muted-foreground">
@@ -179,7 +189,7 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Available Picks */}
         <div className="lg:col-span-2">
           <Card>
@@ -202,10 +212,12 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {availablePicks.map((pick) => {
-                      const isSelected = selectedPicks.some(p => p.id === pick.id)
+                    {availablePicks.map(pick => {
+                      const isSelected = selectedPicks.some(
+                        p => p.id === pick.id
+                      )
                       return (
-                        <TableRow 
+                        <TableRow
                           key={pick.id}
                           className={`cursor-pointer ${isSelected ? 'bg-muted' : ''}`}
                           onClick={() => togglePickSelection(pick)}
@@ -223,14 +235,17 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
                           </TableCell>
                           <TableCell>
                             <div>
-                              <div className="font-medium">{pick.description}</div>
-                              <div className="text-sm text-muted-foreground">
-                                {pick.betType.replace("_", " ")}
+                              <div className="font-medium">
+                                {pick.description}
+                              </div>
+                              <div className="text-muted-foreground text-sm">
+                                {pick.betType.replace('_', ' ')}
                               </div>
                             </div>
                           </TableCell>
                           <TableCell>
-                            {pick.odds > 0 ? "+" : ""}{pick.odds}
+                            {pick.odds > 0 ? '+' : ''}
+                            {pick.odds}
                           </TableCell>
                           <TableCell>{formatDate(pick.gameDate)}</TableCell>
                         </TableRow>
@@ -239,8 +254,10 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
                   </TableBody>
                 </Table>
               ) : (
-                <div className="text-center py-8">
-                  <p className="text-muted-foreground mb-4">No pending picks available!</p>
+                <div className="py-8 text-center">
+                  <p className="text-muted-foreground mb-4">
+                    No pending picks available!
+                  </p>
                   <Button asChild>
                     <a href="/picks/add">Add Some Picks</a>
                   </Button>
@@ -256,25 +273,34 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
             <CardHeader>
               <CardTitle>Parlay Summary</CardTitle>
               <CardDescription>
-                {selectedPicks.length} leg{selectedPicks.length !== 1 ? 's' : ''} selected
+                {selectedPicks.length} leg
+                {selectedPicks.length !== 1 ? 's' : ''} selected
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {selectedPicks.length > 0 && (
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-medium mb-2">Selected Picks:</h4>
+                    <h4 className="mb-2 font-medium">Selected Picks:</h4>
                     <div className="space-y-2">
-                      {selectedPicks.map((pick) => (
-                        <div key={pick.id} className="flex items-center justify-between text-sm">
+                      {selectedPicks.map(pick => (
+                        <div
+                          key={pick.id}
+                          className="flex items-center justify-between text-sm"
+                        >
                           <div className="flex-1">
-                            <div className="font-medium">{pick.description}</div>
+                            <div className="font-medium">
+                              {pick.description}
+                            </div>
                             <div className="text-muted-foreground">
-                              {pick.sport} • {pick.betType.replace("_", " ")}
+                              {pick.sport} • {pick.betType.replace('_', ' ')}
                             </div>
                           </div>
                           <div className="text-right">
-                            <div>{pick.odds > 0 ? "+" : ""}{pick.odds}</div>
+                            <div>
+                              {pick.odds > 0 ? '+' : ''}
+                              {pick.odds}
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -282,10 +308,11 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
                   </div>
 
                   <div className="border-t pt-4">
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="mb-2 flex items-center justify-between">
                       <span className="font-medium">Total Odds:</span>
                       <span className="font-bold">
-                        {calculateParlayOdds() > 0 ? "+" : ""}{calculateParlayOdds().toFixed(0)}
+                        {calculateParlayOdds() > 0 ? '+' : ''}
+                        {calculateParlayOdds().toFixed(0)}
                       </span>
                     </div>
                   </div>
@@ -302,15 +329,17 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
                     min="0.01"
                     placeholder="e.g., 50.00"
                     value={stake}
-                    onChange={(e) => setStake(e.target.value)}
+                    onChange={e => setStake(e.target.value)}
                     required
                   />
                 </div>
 
                 {stake && selectedPicks.length >= 2 && (
-                  <div className="p-4 bg-muted rounded-lg">
+                  <div className="bg-muted rounded-lg p-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Potential Winnings:</span>
+                      <span className="text-sm font-medium">
+                        Potential Winnings:
+                      </span>
                       <Badge variant="secondary" className="text-lg">
                         {formatCurrency(calculatePotentialWin())}
                       </Badge>
@@ -323,12 +352,12 @@ export function ParlayBuilder({ onSuccess }: ParlayBuilderProps) {
                   disabled={selectedPicks.length < 2 || !stake || isSubmitting}
                   className="w-full"
                 >
-                  {isSubmitting ? "Creating Parlay..." : "Create Parlay"}
+                  {isSubmitting ? 'Creating Parlay...' : 'Create Parlay'}
                 </Button>
               </form>
 
               {selectedPicks.length < 2 && (
-                <p className="text-sm text-muted-foreground text-center">
+                <p className="text-muted-foreground text-center text-sm">
                   Select at least 2 picks to create a parlay
                 </p>
               )}

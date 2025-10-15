@@ -1,15 +1,15 @@
-import { NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
-import { z } from "zod"
+import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '@/lib/auth'
+import { prisma } from '@/lib/prisma'
+import { z } from 'zod'
 
 const createPickSchema = z.object({
-  sport: z.enum(["NFL", "NBA", "MLB", "NHL", "UFC"]),
-  betType: z.enum(["SPREAD", "MONEYLINE", "OVER_UNDER"]),
-  description: z.string().min(1, "Description is required"),
+  sport: z.enum(['NFL', 'NBA', 'MLB', 'NHL', 'UFC']),
+  betType: z.enum(['SPREAD', 'MONEYLINE', 'OVER_UNDER']),
+  description: z.string().min(1, 'Description is required'),
   odds: z.number().min(-1000).max(1000),
-  stake: z.number().min(0.01, "Stake must be greater than 0"),
+  stake: z.number().min(0.01, 'Stake must be greater than 0'),
   gameDate: z.string().datetime(),
 })
 
@@ -18,15 +18,15 @@ export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const { searchParams } = new URL(request.url)
-    const sport = searchParams.get("sport")
-    const betType = searchParams.get("betType")
-    const status = searchParams.get("status")
-    const page = parseInt(searchParams.get("page") || "1")
-    const limit = parseInt(searchParams.get("limit") || "20")
+    const sport = searchParams.get('sport')
+    const betType = searchParams.get('betType')
+    const status = searchParams.get('status')
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '20')
     const skip = (page - 1) * limit
 
     const where: Record<string, unknown> = {
@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     const [picks, total] = await Promise.all([
       prisma.pick.findMany({
         where,
-        orderBy: { createdAt: "desc" },
+        orderBy: { createdAt: 'desc' },
         skip,
         take: limit,
       }),
@@ -57,9 +57,9 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error) {
-    console.error("Error fetching picks:", error)
+    console.error('Error fetching picks:', error)
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const body = await request.json()
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     // Calculate potential winnings based on American odds
     const { odds, stake } = validatedData
     let potentialWin: number
-    
+
     if (odds > 0) {
       // Positive odds: (odds / 100) * stake
       potentialWin = (odds / 100) * stake
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
       data: {
         userId: session.user.id,
         amount: -stake, // Negative because it's money going out
-        type: "LOSS", // Will be updated when pick is settled
+        type: 'LOSS', // Will be updated when pick is settled
         relatedPickId: pick.id,
         notes: `Stake for pick: ${validatedData.description}`,
       },
@@ -112,13 +112,13 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.issues },
+        { error: 'Validation error', details: error.issues },
         { status: 400 }
       )
     }
-    console.error("Error creating pick:", error)
+    console.error('Error creating pick:', error)
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

@@ -5,12 +5,14 @@ A comprehensive web application for professional and amateur sports bettors to t
 ## Features
 
 ### Core Functionality
+
 - **Pick Management**: Record and track betting picks with support for spreads, moneylines, over/under, and parlays
 - **Performance Tracking**: Monitor win rates, profit/loss, and ROI across different sports and bet types
 - **Bankroll Management**: Track deposits, withdrawals, and transaction history
 - **Analytics Dashboard**: Detailed performance analysis with charts and insights
 
 ### Supported Sports
+
 - NFL (National Football League)
 - NBA (National Basketball Association)
 - MLB (Major League Baseball)
@@ -18,6 +20,7 @@ A comprehensive web application for professional and amateur sports bettors to t
 - UFC (Ultimate Fighting Championship)
 
 ### Bet Types
+
 - Spread betting
 - Moneyline betting
 - Over/Under totals
@@ -37,39 +40,43 @@ A comprehensive web application for professional and amateur sports bettors to t
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - PostgreSQL database (local or cloud)
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd sports-betting-tracker
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
-   
+
    Copy `.env.example` to `.env` and fill in your values:
+
    ```bash
    cp .env.example .env
    ```
 
    Required environment variables:
+
    ```env
    # Database
    DATABASE_URL="your-postgresql-connection-string"
-   
+
    # NextAuth.js
    NEXTAUTH_URL="http://localhost:3000"
    NEXTAUTH_SECRET="your-secret-key"
-   
+
    # OAuth Providers
    GOOGLE_CLIENT_ID="your-google-client-id"
    GOOGLE_CLIENT_SECRET="your-google-client-secret"
@@ -78,26 +85,29 @@ A comprehensive web application for professional and amateur sports bettors to t
    ```
 
 4. **Set up the database**
+
    ```bash
    # Generate Prisma client
    npx prisma generate
-   
+
    # Run database migrations
    npx prisma db push
    ```
 
 5. **Start the development server**
+
    ```bash
    npm run dev
    ```
 
 6. **Open your browser**
-   
+
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## OAuth Setup
 
 ### Google OAuth
+
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Create a new project or select existing one
 3. Enable Google+ API
@@ -107,6 +117,7 @@ A comprehensive web application for professional and amateur sports bettors to t
    - `https://yourdomain.com/api/auth/callback/google` (production)
 
 ### Discord OAuth
+
 1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
 2. Create a new application
 3. Go to OAuth2 settings
@@ -127,6 +138,7 @@ The application uses the following main entities:
 ## API Endpoints
 
 ### Picks
+
 - `GET /api/picks` - Get all picks for authenticated user
 - `POST /api/picks` - Create a new pick
 - `GET /api/picks/[id]` - Get specific pick
@@ -134,6 +146,7 @@ The application uses the following main entities:
 - `DELETE /api/picks/[id]` - Delete pick
 
 ### Statistics
+
 - `GET /api/stats` - Get user statistics and analytics data
 
 ## Deployment
@@ -141,6 +154,7 @@ The application uses the following main entities:
 ### Vercel (Recommended)
 
 1. **Push to GitHub**
+
    ```bash
    git add .
    git commit -m "Initial commit"
@@ -160,6 +174,7 @@ The application uses the following main entities:
 ### Other Platforms
 
 The app can be deployed to any platform that supports Next.js:
+
 - Netlify
 - Railway
 - DigitalOcean App Platform
@@ -168,6 +183,7 @@ The app can be deployed to any platform that supports Next.js:
 ## Usage
 
 ### Adding Picks
+
 1. Sign in with Google or Discord
 2. Navigate to "Add Pick" from the dashboard
 3. Fill in the pick details:
@@ -180,12 +196,14 @@ The app can be deployed to any platform that supports Next.js:
 4. The potential winnings are calculated automatically
 
 ### Managing Picks
+
 1. View all picks on the "All Picks" page
 2. Filter by sport, bet type, or status
 3. Settle pending picks by marking them as Won, Lost, or Push
 4. View detailed analytics on the Analytics page
 
 ### Analytics
+
 - Overview statistics (win rate, profit/loss, ROI)
 - Performance breakdown by sport and bet type
 - Visual charts showing trends and distributions
@@ -202,18 +220,21 @@ The app can be deployed to any platform that supports Next.js:
 ## Roadmap
 
 ### Phase 1 (Current)
+
 - ✅ Core pick management
 - ✅ Basic analytics
 - ✅ User authentication
 - ✅ Dashboard
 
 ### Phase 2 (Planned)
+
 - 🔄 Parlay system
 - 🔄 Bankroll management
 - 🔄 Profile settings
 - 🔄 Export functionality
 
 ### Phase 3 (Future)
+
 - 📋 Social features (leaderboards, sharing)
 - 📋 Mobile app
 - 📋 Advanced analytics
