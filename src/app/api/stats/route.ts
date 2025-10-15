@@ -7,7 +7,7 @@ import { prisma } from "@/lib/prisma"
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -19,15 +19,15 @@ export async function GET(request: NextRequest) {
 
     // Build where clause for filtering
     const where: Record<string, unknown> = {
-      userId: (session.user as any).id,
+      userId: session.user.id,
     }
 
     if (sport) where.sport = sport
     if (betType) where.betType = betType
     if (startDate || endDate) {
       where.createdAt = {}
-      if (startDate) where.createdAt.gte = new Date(startDate)
-      if (endDate) where.createdAt.lte = new Date(endDate)
+      if (startDate) (where.createdAt as any).gte = new Date(startDate)
+      if (endDate) (where.createdAt as any).lte = new Date(endDate)
     }
 
     // Get all picks for the user with filters
@@ -130,7 +130,7 @@ export async function GET(request: NextRequest) {
     // Get bankroll history for profit/loss over time
     const bankrollHistory = await prisma.bankrollHistory.findMany({
       where: {
-        userId: (session.user as any).id,
+        userId: session.user.id,
         type: { in: ["WIN", "LOSS", "PUSH"] },
       },
       orderBy: { timestamp: "asc" },

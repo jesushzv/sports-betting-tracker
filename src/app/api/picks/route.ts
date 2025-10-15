@@ -17,7 +17,7 @@ const createPickSchema = z.object({
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
 
     const where: Record<string, unknown> = {
-      userId: (session.user as any).id,
+      userId: session.user.id,
     }
 
     if (sport) where.sport = sport
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -93,14 +93,14 @@ export async function POST(request: NextRequest) {
         ...validatedData,
         gameDate: new Date(validatedData.gameDate),
         potentialWin,
-        userId: (session.user as any).id,
+        userId: session.user.id,
       },
     })
 
     // Create bankroll history entry for the stake
     await prisma.bankrollHistory.create({
       data: {
-        userId: (session.user as any).id,
+        userId: session.user.id,
         amount: -stake, // Negative because it's money going out
         type: "LOSS", // Will be updated when pick is settled
         relatedPickId: pick.id,

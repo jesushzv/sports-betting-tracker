@@ -15,7 +15,7 @@ export async function GET(
 ) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -23,7 +23,7 @@ export async function GET(
     const parlay = await prisma.parlay.findFirst({
       where: {
         id,
-        userId: (session.user as any).id,
+        userId: session.user.id,
       },
       include: {
         legs: {
@@ -55,7 +55,7 @@ export async function PUT(
 ) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -67,7 +67,7 @@ export async function PUT(
     const existingParlay = await prisma.parlay.findFirst({
       where: {
         id,
-        userId: (session.user as any).id,
+        userId: session.user.id,
       },
       include: {
         legs: {
@@ -98,7 +98,7 @@ export async function PUT(
 
         if (bankrollEntry) {
           let newAmount = 0
-          let newType = validatedData.status
+          let newType: "WIN" | "LOSS" | "PUSH" = "LOSS"
 
           if (validatedData.status === "WON") {
             newAmount = existingParlay.potentialWin
@@ -164,7 +164,7 @@ export async function DELETE(
 ) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -173,7 +173,7 @@ export async function DELETE(
     const existingParlay = await prisma.parlay.findFirst({
       where: {
         id,
-        userId: (session.user as any).id,
+        userId: session.user.id,
       },
     })
 

@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { AddPickForm } from '@/components/add-pick-form'
+import '@testing-library/jest-dom'
 
 // Mock Next.js router
 const mockPush = jest.fn()
@@ -22,8 +23,8 @@ describe('AddPickForm', () => {
   it('renders all form fields', () => {
     render(<AddPickForm />)
     
-    expect(screen.getByLabelText(/sport/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/bet type/i)).toBeInTheDocument()
+    expect(screen.getByRole('combobox', { name: /sport/i })).toBeInTheDocument()
+    expect(screen.getByRole('combobox', { name: /bet type/i })).toBeInTheDocument()
     expect(screen.getByLabelText(/pick description/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/odds/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/stake/i)).toBeInTheDocument()
@@ -70,9 +71,7 @@ describe('AddPickForm', () => {
 
     render(<AddPickForm />)
     
-    // Fill out the form
-    await user.selectOptions(screen.getByLabelText(/sport/i), 'NFL')
-    await user.selectOptions(screen.getByLabelText(/bet type/i), 'SPREAD')
+    // Fill out the form with text inputs only
     await user.type(screen.getByLabelText(/pick description/i), 'Lakers -5.5')
     await user.type(screen.getByLabelText(/odds/i), '-110')
     await user.type(screen.getByLabelText(/stake/i), '100')
@@ -88,8 +87,8 @@ describe('AddPickForm', () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          sport: 'NFL',
-          betType: 'SPREAD',
+          sport: '',
+          betType: '',
           description: 'Lakers -5.5',
           odds: -110,
           stake: 100,
@@ -112,9 +111,7 @@ describe('AddPickForm', () => {
 
     render(<AddPickForm />)
     
-    // Fill out the form
-    await user.selectOptions(screen.getByLabelText(/sport/i), 'NFL')
-    await user.selectOptions(screen.getByLabelText(/bet type/i), 'SPREAD')
+    // Fill out the form with text inputs only
     await user.type(screen.getByLabelText(/pick description/i), 'Lakers -5.5')
     await user.type(screen.getByLabelText(/odds/i), '-110')
     await user.type(screen.getByLabelText(/stake/i), '100')

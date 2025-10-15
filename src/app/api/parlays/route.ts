@@ -13,7 +13,7 @@ const createParlaySchema = z.object({
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
 
     const where: Record<string, unknown> = {
-      userId: (session.user as any).id,
+      userId: session.user.id,
     }
 
     if (status) where.status = status
@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     const picks = await prisma.pick.findMany({
       where: {
         id: { in: validatedData.pickIds },
-        userId: (session.user as any).id,
+        userId: session.user.id,
         status: "PENDING",
       },
     })
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
       // Create the parlay
       const parlay = await tx.parlay.create({
         data: {
-          userId: (session.user as any).id,
+          userId: session.user.id,
           totalOdds: americanOdds,
           stake: validatedData.stake,
           potentialWin,
@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
       // Create bankroll history entry for the stake
       await tx.bankrollHistory.create({
         data: {
-          userId: (session.user as any).id,
+          userId: session.user.id,
           amount: -validatedData.stake,
           type: "LOSS", // Will be updated when parlay is settled
           relatedParlayId: parlay.id,

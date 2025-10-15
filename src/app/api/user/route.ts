@@ -13,12 +13,12 @@ const updateUserSchema = z.object({
 export async function GET() {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: (session.user as any).id },
+      where: { id: session.user.id },
       select: {
         id: true,
         name: true,
@@ -48,7 +48,7 @@ export async function GET() {
 export async function PUT(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -56,7 +56,7 @@ export async function PUT(request: NextRequest) {
     const validatedData = updateUserSchema.parse(body)
 
     const updatedUser = await prisma.user.update({
-      where: { id: (session.user as any).id },
+      where: { id: session.user.id },
       data: validatedData,
       select: {
         id: true,
@@ -89,13 +89,13 @@ export async function PUT(request: NextRequest) {
 export async function DELETE() {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user || !(session.user as any).id) {
+    if (!session?.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     // Delete user and all associated data (cascade delete)
     await prisma.user.delete({
-      where: { id: (session.user as any).id },
+      where: { id: session.user.id },
     })
 
     return NextResponse.json({ message: "Account deleted successfully" })

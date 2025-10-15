@@ -29,20 +29,20 @@ test.describe('Picks Management', () => {
     await page.goto('/picks/add')
     
     // Check form fields
-    await expect(page.getByLabelText('Sport')).toBeVisible()
-    await expect(page.getByLabelText('Bet Type')).toBeVisible()
-    await expect(page.getByLabelText('Pick Description')).toBeVisible()
-    await expect(page.getByLabelText('Odds (American)')).toBeVisible()
-    await expect(page.getByLabelText('Stake ($)')).toBeVisible()
-    await expect(page.getByLabelText('Game Date & Time')).toBeVisible()
+    await expect(page.getByLabel('Sport')).toBeVisible()
+    await expect(page.getByLabel('Bet Type')).toBeVisible()
+    await expect(page.getByLabel('Pick Description')).toBeVisible()
+    await expect(page.getByLabel('Odds (American)')).toBeVisible()
+    await expect(page.getByLabel('Stake ($)')).toBeVisible()
+    await expect(page.getByLabel('Game Date & Time')).toBeVisible()
   })
 
   test('should calculate potential winnings', async ({ page }) => {
     await page.goto('/picks/add')
     
     // Fill in odds and stake
-    await page.getByLabelText('Odds (American)').fill('-110')
-    await page.getByLabelText('Stake ($)').fill('100')
+    await page.getByLabel('Odds (American)').fill('-110')
+    await page.getByLabel('Stake ($)').fill('100')
     
     // Check that potential winnings are calculated
     await expect(page.getByText('$90.91')).toBeVisible()
@@ -62,9 +62,9 @@ test.describe('Picks Management', () => {
     
     // Check filter elements
     await expect(page.getByText('Filters')).toBeVisible()
-    await expect(page.getByLabelText('Sport')).toBeVisible()
-    await expect(page.getByLabelText('Bet Type')).toBeVisible()
-    await expect(page.getByLabelText('Status')).toBeVisible()
+    await expect(page.getByLabel('Sport')).toBeVisible()
+    await expect(page.getByLabel('Bet Type')).toBeVisible()
+    await expect(page.getByLabel('Status')).toBeVisible()
   })
 })
 

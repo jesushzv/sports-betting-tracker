@@ -71,12 +71,6 @@ export default function ParlaysPage() {
     }
   }, [status, router])
 
-  useEffect(() => {
-    if (session) {
-      fetchParlays()
-    }
-  }, [session, fetchParlays])
-
   const fetchParlays = useCallback(async () => {
     try {
       setLoading(true)
@@ -97,6 +91,12 @@ export default function ParlaysPage() {
       setLoading(false)
     }
   }, [filters])
+
+  useEffect(() => {
+    if (session) {
+      fetchParlays()
+    }
+  }, [session, fetchParlays])
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters(prev => ({ ...prev, [key]: value, page: 1 }))

@@ -1,9 +1,8 @@
 import { createMocks } from 'node-mocks-http'
 import { NextRequest } from 'next/server'
-import { GET, POST } from '@/app/api/picks/route'
 
-// Mock NextAuth
-jest.mock('next-auth', () => ({
+// Mock NextAuth to avoid ES module issues
+jest.mock('next-auth/next', () => ({
   getServerSession: jest.fn(() => ({
     user: { id: 'test-user-id' },
   })),
@@ -24,6 +23,17 @@ const mockPrisma = {
 jest.mock('@/lib/prisma', () => ({
   prisma: mockPrisma,
 }))
+
+// Mock auth options
+jest.mock('@/lib/auth', () => ({
+  authOptions: {
+    providers: [],
+    callbacks: {},
+  },
+}))
+
+// Import the route handlers after mocking
+const { GET, POST } = require('@/app/api/picks/route')
 
 describe('/api/picks', () => {
   beforeEach(() => {
@@ -65,9 +75,8 @@ describe('/api/picks', () => {
 
     it('returns 401 for unauthenticated user', async () => {
       // Mock unauthenticated session
-      jest.doMock('next-auth', () => ({
-        getServerSession: jest.fn(() => null),
-      }))
+      const { getServerSession } = require('next-auth/next')
+      getServerSession.mockResolvedValueOnce(null)
 
       const { req } = createMocks({
         method: 'GET',

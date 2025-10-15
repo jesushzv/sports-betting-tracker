@@ -145,7 +145,7 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
                 onValueChange={(value) => handleInputChange("sport", value)}
                 required
               >
-                <SelectTrigger>
+                <SelectTrigger id="sport">
                   <SelectValue placeholder="Select sport" />
                 </SelectTrigger>
                 <SelectContent>
@@ -165,7 +165,7 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
                 onValueChange={(value) => handleInputChange("betType", value)}
                 required
               >
-                <SelectTrigger>
+                <SelectTrigger id="betType">
                   <SelectValue placeholder="Select bet type" />
                 </SelectTrigger>
                 <SelectContent>

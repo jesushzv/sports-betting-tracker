@@ -59,12 +59,6 @@ export default function PicksPage() {
     }
   }, [status, router])
 
-  useEffect(() => {
-    if (session) {
-      fetchPicks()
-    }
-  }, [session, fetchPicks])
-
   const fetchPicks = useCallback(async () => {
     try {
       setLoading(true)
@@ -87,6 +81,12 @@ export default function PicksPage() {
       setLoading(false)
     }
   }, [filters])
+
+  useEffect(() => {
+    if (session) {
+      fetchPicks()
+    }
+  }, [session, fetchPicks])
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters(prev => ({ ...prev, [key]: value, page: 1 }))

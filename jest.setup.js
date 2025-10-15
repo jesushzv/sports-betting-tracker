@@ -56,3 +56,80 @@ global.IntersectionObserver = class IntersectionObserver {
   observe() {}
   unobserve() {}
 }
+
+// Mock hasPointerCapture for Radix UI compatibility
+Object.defineProperty(Element.prototype, 'hasPointerCapture', {
+  value: jest.fn(() => false),
+  writable: true,
+})
+
+Object.defineProperty(Element.prototype, 'setPointerCapture', {
+  value: jest.fn(),
+  writable: true,
+})
+
+Object.defineProperty(Element.prototype, 'releasePointerCapture', {
+  value: jest.fn(),
+  writable: true,
+})
+
+// Mock Next.js server components
+global.Request = class Request {
+  constructor(input, init) {
+    this.url = input
+    this.method = init?.method || 'GET'
+    this.headers = new Map(Object.entries(init?.headers || {}))
+    this.body = init?.body
+  }
+  
+  async json() {
+    return JSON.parse(this.body || '{}')
+  }
+}
+
+global.Response = class Response {
+  constructor(body, init) {
+    this.body = body
+    this.status = init?.status || 200
+    this.statusText = init?.statusText || 'OK'
+    this.headers = new Map(Object.entries(init?.headers || {}))
+  }
+  
+  async json() {
+    return JSON.parse(this.body || '{}')
+  }
+}
+
+global.Headers = class Headers {
+  constructor(init) {
+    this.map = new Map(Object.entries(init || {}))
+  }
+  
+  get(name) {
+    return this.map.get(name.toLowerCase())
+  }
+  
+  set(name, value) {
+    this.map.set(name.toLowerCase(), value)
+  }
+  
+  has(name) {
+    return this.map.has(name.toLowerCase())
+  }
+  
+  delete(name) {
+    this.map.delete(name.toLowerCase())
+  }
+  
+  entries() {
+    return this.map.entries()
+  }
+  
+  keys() {
+    return this.map.keys()
+  }
+  
+  values() {
+    return this.map.values()
+  }
+}
