@@ -101,11 +101,7 @@ export async function testNavigationButtons(
   const user = userEvent.setup()
   const issues: string[] = []
   
-  // Mock router functions
-  const mockPush = jest.fn()
-  const mockReplace = jest.fn()
-  
-  for (const { buttonText, expectedNavigation } of buttonNavigationPairs) {
+  for (const { buttonText } of buttonNavigationPairs) {
     try {
       const button = screen.getByRole('button', { name: new RegExp(buttonText, 'i') })
       

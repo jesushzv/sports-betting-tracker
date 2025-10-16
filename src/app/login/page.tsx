@@ -116,7 +116,7 @@ export default function LoginPage() {
                 <div className="mt-2 text-xs">
                   <p>This error usually means:</p>
                   <ul className="list-disc list-inside mt-1">
-                    <li>The redirect URI in your OAuth app doesn't match the current URL</li>
+                    <li>The redirect URI in your OAuth app doesn&apos;t match the current URL</li>
                     <li>Make sure your OAuth app has the correct redirect URI configured</li>
                     <li>Expected format: <code>{typeof window !== 'undefined' ? window.location.origin : 'https://yourdomain.com'}/api/auth/callback/google</code></li>
                   </ul>

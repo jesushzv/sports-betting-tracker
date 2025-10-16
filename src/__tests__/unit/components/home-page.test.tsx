@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import Home from '@/app/page'
 import '@testing-library/jest-dom'
 
