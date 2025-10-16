@@ -19,6 +19,7 @@
     "test:coverage": "jest --coverage --testPathPattern=unit",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "test:e2e:install": "playwright install",
     "test:smoke": "playwright test --grep @smoke",
     "test:all": "npm run test:unit && npm run test:e2e",
     "test:ci": "npm run test:unit",

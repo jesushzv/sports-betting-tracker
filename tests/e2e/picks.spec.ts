@@ -28,13 +28,28 @@ test.describe('Picks Management', () => {
   }) => {
     await page.goto('/dashboard')
 
+    // Check if we're on login page first
+    const isOnLoginPage = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
+    
+    if (isOnLoginPage) {
+      // If redirected to login, that's expected behavior
+      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
+      return
+    }
+
+    // If not on login page, try to navigate to add pick page
     try {
-      await page.getByRole('link', { name: 'Add Pick' }).click()
+      await page.getByRole('link', { name: 'Add Pick' }).click({ timeout: 5000 })
       await expect(page).toHaveURL('/picks/add')
       await expect(page.getByText('Add New Pick')).toBeVisible()
-    } catch {
-      // If redirected to login, that's expected
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
+    } catch (error) {
+      // Check if we ended up on login page after navigation attempt
+      const redirectedToLogin = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
+      if (redirectedToLogin) {
+        await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
+      } else {
+        throw error
+      }
     }
   })
 
@@ -62,16 +77,31 @@ test.describe('Picks Management', () => {
   }) => {
     await page.goto('/picks/add')
 
+    // Check if we're on login page first
+    const isOnLoginPage = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
+    
+    if (isOnLoginPage) {
+      // If redirected to login, that's expected behavior
+      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
+      return
+    }
+
+    // If not on login page, try to test the form functionality
     try {
       // Fill in odds and stake
-      await page.getByLabel('Odds (American)').fill('-110')
-      await page.getByLabel('Stake ($)').fill('100')
+      await page.getByLabel('Odds (American)').fill('-110', { timeout: 5000 })
+      await page.getByLabel('Stake ($)').fill('100', { timeout: 5000 })
 
       // Check that potential winnings are calculated
       await expect(page.getByText('$90.91')).toBeVisible({ timeout: 5000 })
-    } catch {
-      // If redirected to login, that's expected
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
+    } catch (error) {
+      // Check if we ended up on login page after form interaction
+      const redirectedToLogin = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
+      if (redirectedToLogin) {
+        await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
+      } else {
+        throw error
+      }
     }
   })
 
@@ -80,13 +110,28 @@ test.describe('Picks Management', () => {
   }) => {
     await page.goto('/dashboard')
 
+    // Check if we're on login page first
+    const isOnLoginPage = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
+    
+    if (isOnLoginPage) {
+      // If redirected to login, that's expected behavior
+      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
+      return
+    }
+
+    // If not on login page, try to navigate to all picks page
     try {
-      await page.getByRole('link', { name: 'View All Picks' }).click()
+      await page.getByRole('link', { name: 'View All Picks' }).click({ timeout: 5000 })
       await expect(page).toHaveURL('/picks')
       await expect(page.getByText('All Picks')).toBeVisible({ timeout: 5000 })
-    } catch {
-      // If redirected to login, that's expected
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
+    } catch (error) {
+      // Check if we ended up on login page after navigation attempt
+      const redirectedToLogin = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
+      if (redirectedToLogin) {
+        await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
+      } else {
+        throw error
+      }
     }
   })
 

@@ -209,6 +209,39 @@ The app can be deployed to any platform that supports Next.js:
 - Visual charts showing trends and distributions
 - Bankroll history tracking
 
+## Testing
+
+### Prerequisites
+Before running E2E tests, ensure Playwright browsers are installed:
+
+```bash
+npm run test:e2e:install
+```
+
+### Running Tests
+
+```bash
+# Unit tests
+npm run test:unit
+
+# Integration tests  
+npm run test:integration
+
+# E2E tests
+npm run test:e2e
+
+# Smoke tests only
+npm run test:smoke
+
+# All tests
+npm run test:all
+```
+
+### Test Setup
+- Unit and integration tests use Jest with jsdom environment
+- E2E tests use Playwright across multiple browser configurations (Chrome, Firefox, Safari, Mobile)
+- Tests are configured with appropriate timeouts and retry strategies
+
 ## Contributing
 
 1. Fork the repository
