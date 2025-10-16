@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -22,6 +23,14 @@ export default function Home() {
       router.push('/dashboard')
     }
   }, [session, router])
+
+  const handleGetStarted = () => {
+    if (session) {
+      router.push('/dashboard')
+    } else {
+      router.push('/login')
+    }
+  }
 
   if (status === 'loading') {
     return (
@@ -48,11 +57,11 @@ export default function Home() {
           effectively.
         </p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
-          <Button size="lg" className="px-8 text-lg">
+          <Button size="lg" className="px-8 text-lg" onClick={handleGetStarted}>
             Get Started Free
           </Button>
-          <Button variant="outline" size="lg" className="px-8 text-lg">
-            Learn More
+          <Button variant="outline" size="lg" className="px-8 text-lg" asChild>
+            <Link href="/login">Learn More</Link>
           </Button>
         </div>
       </div>
@@ -143,7 +152,7 @@ export default function Home() {
           Join thousands of bettors who trust BetTracker to keep their records
           straight.
         </p>
-        <Button size="lg" className="px-8 text-lg">
+        <Button size="lg" className="px-8 text-lg" onClick={handleGetStarted}>
           Sign Up Free
         </Button>
       </div>

@@ -15,6 +15,7 @@ import {
 export default function LoginPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     // Check if user is already logged in
@@ -27,22 +28,24 @@ export default function LoginPage() {
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true)
+    setError(null)
     try {
       await signIn('google', { callbackUrl: '/dashboard' })
     } catch (error) {
       console.error('Sign in error:', error)
-    } finally {
+      setError('An unexpected error occurred during sign-in')
       setIsLoading(false)
     }
   }
 
   const handleDiscordSignIn = async () => {
     setIsLoading(true)
+    setError(null)
     try {
       await signIn('discord', { callbackUrl: '/dashboard' })
     } catch (error) {
       console.error('Sign in error:', error)
-    } finally {
+      setError('An unexpected error occurred during sign-in')
       setIsLoading(false)
     }
   }
@@ -103,6 +106,22 @@ export default function LoginPage() {
           {isLoading && (
             <div className="text-muted-foreground text-center text-sm">
               Signing you in...
+            </div>
+          )}
+
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-md p-3 text-red-700 text-sm">
+              {error}
+              {error.includes('redirect_uri_mismatch') && (
+                <div className="mt-2 text-xs">
+                  <p>This error usually means:</p>
+                  <ul className="list-disc list-inside mt-1">
+                    <li>The redirect URI in your OAuth app doesn't match the current URL</li>
+                    <li>Make sure your OAuth app has the correct redirect URI configured</li>
+                    <li>Expected format: <code>{typeof window !== 'undefined' ? window.location.origin : 'https://yourdomain.com'}/api/auth/callback/google</code></li>
+                  </ul>
+                </div>
+              )}
             </div>
           )}
         </CardContent>
