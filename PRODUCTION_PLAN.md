@@ -8,7 +8,7 @@
 - **Styling**: Tailwind CSS with shadcn/ui components
 - **Backend**: Next.js API Routes with Node.js
 - **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: NextAuth.js with OAuth providers (Google, Discord)
+- **Authentication**: NextAuth.js with OAuth providers (Google, Discord) and email/password authentication
 
 ### **Production Infrastructure**
 
@@ -53,7 +53,7 @@
 
 ### **Core Tables**
 
-1. **Users** - Authentication, profile, starting bankroll
+1. **Users** - Authentication (OAuth + email/password), profile, starting bankroll, demo flag
 2. **Picks** - Individual betting picks with full tracking
 3. **Parlays** - Multi-leg betting combinations
 4. **ParlayLegs** - Links between parlays and picks
@@ -154,9 +154,11 @@ npm run test:smoke       # Critical path smoke tests
 ### **Authentication Security**
 
 - OAuth 2.0 with Google and Discord
+- Email/password authentication with bcrypt hashing
 - Secure session management
 - JWT token handling
 - CSRF protection
+- Password strength validation
 
 ### **Data Protection**
 
@@ -216,13 +218,16 @@ npm run test:watch       # Test watcher
 
 ### **Core Application Features**
 
-- ✅ User authentication (Google, Discord)
+- ✅ User authentication (Google, Discord, email/password)
+- ✅ Demo mode for visitors with realistic sample data
 - ✅ Pick management (CRUD operations)
 - ✅ Analytics dashboard with charts
 - ✅ Performance tracking (win rate, ROI, P/L)
 - ✅ Bankroll management
+- ✅ Parlay system with multi-leg betting
 - ✅ Multi-sport support (NFL, NBA, MLB, NHL, UFC)
 - ✅ Bet type support (Spread, Moneyline, Over/Under)
+- ✅ Interactive demo features with sign-up prompts
 
 ### **Production Infrastructure Features**
 
@@ -249,7 +254,7 @@ npm run test:watch       # Test watcher
 ### **Initial Setup**
 
 1. **Create Neon Database** - Get connection string
-2. **Set up OAuth Providers** - Google and Discord apps
+2. **Set up OAuth Providers** - Google and Discord apps (optional)
 3. **Configure Vercel Project** - Connect GitHub repository
 4. **Set Environment Variables** - All required secrets
 5. **Deploy to Staging** - Test deployment

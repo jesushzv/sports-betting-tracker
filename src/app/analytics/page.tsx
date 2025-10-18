@@ -1,7 +1,6 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import {
   Card,
@@ -76,20 +75,14 @@ interface AnalyticsData {
 
 export default function AnalyticsPage() {
   const { data: session, status } = useSession()
-  const router = useRouter()
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login')
-    }
-  }, [status, router])
+  // Remove authentication guard - allow demo mode
 
   useEffect(() => {
-    if (session) {
-      fetchAnalytics()
-    }
+    // Fetch analytics for both authenticated users and demo mode
+    fetchAnalytics()
   }, [session])
 
   const fetchAnalytics = async () => {
@@ -117,9 +110,7 @@ export default function AnalyticsPage() {
     )
   }
 
-  if (!session) {
-    return null
-  }
+  // Allow demo mode - no need to return null for unauthenticated users
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -161,7 +152,10 @@ export default function AnalyticsPage() {
       <div>
         <h1 className="text-3xl font-bold">Analytics</h1>
         <p className="text-muted-foreground">
-          Detailed performance analysis and insights
+          {session 
+            ? 'Detailed performance analysis and insights'
+            : 'Demo Analytics - Sign up to track your own performance!'
+          }
         </p>
       </div>
 

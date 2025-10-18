@@ -1,19 +1,12 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { BankrollManager } from '@/components/bankroll-manager'
 
 export default function BankrollPage() {
-  const { data: session, status } = useSession()
-  const router = useRouter()
+  const { status } = useSession()
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login')
-    }
-  }, [status, router])
+  // Remove authentication guard - allow demo mode
 
   if (status === 'loading') {
     return (
@@ -24,10 +17,6 @@ export default function BankrollPage() {
         </div>
       </div>
     )
-  }
-
-  if (!session) {
-    return null
   }
 
   return <BankrollManager />

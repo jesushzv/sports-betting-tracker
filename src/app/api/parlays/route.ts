@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
+import { demoParlays, demoPicks } from '@/lib/demo-data'
 
 const createParlaySchema = z.object({
   pickIds: z.array(z.string()).min(2, 'Parlay must have at least 2 legs'),
@@ -13,8 +14,49 @@ const createParlaySchema = z.object({
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
+    
+    // Return demo data for unauthenticated users
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      const { searchParams } = new URL(request.url)
+      const status = searchParams.get('status')
+      const page = parseInt(searchParams.get('page') || '1')
+      const limit = parseInt(searchParams.get('limit') || '20')
+      
+      let filteredParlays = demoParlays
+      
+      if (status) filteredParlays = filteredParlays.filter(p => p.status === status)
+      
+      const skip = (page - 1) * limit
+      const paginatedParlays = filteredParlays.slice(skip, skip + limit)
+      
+      // Add demo legs to parlays
+      const parlaysWithLegs = paginatedParlays.map(parlay => ({
+        ...parlay,
+        legs: [
+          {
+            id: `${parlay.id}-leg-1`,
+            parlayId: parlay.id,
+            pickId: 'demo-pick-1',
+            pick: demoPicks.find(p => p.id === 'demo-pick-1'),
+          },
+          {
+            id: `${parlay.id}-leg-2`,
+            parlayId: parlay.id,
+            pickId: 'demo-pick-4',
+            pick: demoPicks.find(p => p.id === 'demo-pick-4'),
+          },
+        ],
+      }))
+      
+      return NextResponse.json({
+        parlays: parlaysWithLegs,
+        pagination: {
+          page,
+          limit,
+          total: filteredParlays.length,
+          pages: Math.ceil(filteredParlays.length / limit),
+        },
+      })
     }
 
     const { searchParams } = new URL(request.url)
@@ -69,7 +111,7 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required to create parlays' }, { status: 401 })
     }
 
     const body = await request.json()

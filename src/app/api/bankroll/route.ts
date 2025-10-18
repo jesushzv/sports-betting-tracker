@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
+import { demoBankrollHistory } from '@/lib/demo-data'
 
 type SessionUser = {
   id: string
@@ -23,8 +24,35 @@ export async function GET(request: NextRequest) {
     const session = (await getServerSession(authOptions)) as {
       user?: SessionUser
     } | null
+    
+    // Return demo data for unauthenticated users
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      const { searchParams } = new URL(request.url)
+      const type = searchParams.get('type')
+      const page = parseInt(searchParams.get('page') || '1')
+      const limit = parseInt(searchParams.get('limit') || '50')
+      
+      let filteredTransactions = demoBankrollHistory
+      
+      if (type) filteredTransactions = filteredTransactions.filter(t => t.type === type)
+      
+      const skip = (page - 1) * limit
+      const paginatedTransactions = filteredTransactions.slice(skip, skip + limit)
+      
+      // Calculate current balance
+      const currentBalance = filteredTransactions.reduce((sum, t) => sum + t.amount, 0)
+      
+      return NextResponse.json({
+        transactions: paginatedTransactions,
+        currentBalance,
+        startingBankroll: 1000,
+        pagination: {
+          page,
+          limit,
+          total: filteredTransactions.length,
+          pages: Math.ceil(filteredTransactions.length / limit),
+        },
+      })
     }
 
     const { searchParams } = new URL(request.url)
@@ -119,7 +147,7 @@ export async function POST(request: NextRequest) {
       user?: SessionUser
     } | null
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required to manage bankroll' }, { status: 401 })
     }
 
     const body = await request.json()

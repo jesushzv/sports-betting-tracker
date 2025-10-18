@@ -2,171 +2,96 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Picks Management', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to dashboard (may redirect to login)
+    // Navigate to dashboard (should show demo mode for unauthenticated users)
     await page.goto('/dashboard')
   })
 
-  test('should display dashboard with stats or redirect to login', async ({
+  test('should display demo dashboard for unauthenticated users', async ({
     page,
   }) => {
     await page.goto('/dashboard')
 
-    // Check if we're on dashboard or redirected to login
-    try {
-      await expect(page.getByText('Dashboard')).toBeVisible({ timeout: 5000 })
-      await expect(page.getByText('Total Picks')).toBeVisible()
-      await expect(page.getByText('Win Rate')).toBeVisible()
-      await expect(page.getByText('Net Profit')).toBeVisible()
-    } catch {
-      // If redirected to login, that's expected behavior
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-    }
+    // Should show demo mode
+    await expect(page.getByText('Demo Dashboard')).toBeVisible()
+    await expect(page.getByText('Sign up to track your own bets!')).toBeVisible()
+    await expect(page.getByText('Total Picks')).toBeVisible()
+    await expect(page.getByText('Win Rate')).toBeVisible()
+    await expect(page.getByText('Total Profit')).toBeVisible()
   })
 
-  test('should navigate to add pick page or redirect to login', async ({
+  test('should navigate to add pick page in demo mode', async ({
     page,
   }) => {
     await page.goto('/dashboard')
 
-    // Check if we're on login page first
-    const isOnLoginPage = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
-    
-    if (isOnLoginPage) {
-      // If redirected to login, that's expected behavior
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-      return
-    }
-
-    // If not on login page, try to navigate to add pick page
-    try {
-      await page.getByRole('link', { name: 'Add Pick' }).click({ timeout: 5000 })
-      await expect(page).toHaveURL('/picks/add')
-      await expect(page.getByText('Add New Pick')).toBeVisible()
-    } catch (error) {
-      // Check if we ended up on login page after navigation attempt
-      const redirectedToLogin = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
-      if (redirectedToLogin) {
-        await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-      } else {
-        throw error
-      }
-    }
+    // Should be able to navigate to add pick page in demo mode
+    await page.getByRole('link', { name: 'Add Pick' }).click()
+    await expect(page).toHaveURL('/picks/add')
+    await expect(page.getByText('Try the form below')).toBeVisible()
   })
 
-  test('should display add pick form with all fields or redirect to login', async ({
+  test('should display add pick form with all fields in demo mode', async ({
     page,
   }) => {
     await page.goto('/picks/add')
 
-    try {
-      // Check form fields
-      await expect(page.getByLabel('Sport')).toBeVisible({ timeout: 5000 })
-      await expect(page.getByLabel('Bet Type')).toBeVisible()
-      await expect(page.getByLabel('Pick Description')).toBeVisible()
-      await expect(page.getByLabel('Odds (American)')).toBeVisible()
-      await expect(page.getByLabel('Stake ($)')).toBeVisible()
-      await expect(page.getByLabel('Game Date & Time')).toBeVisible()
-    } catch {
-      // If redirected to login, that's expected
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-    }
+    // Check form fields are visible in demo mode
+    await expect(page.getByLabel('Sport')).toBeVisible()
+    await expect(page.getByLabel('Bet Type')).toBeVisible()
+    await expect(page.getByLabel('Pick Description')).toBeVisible()
+    await expect(page.getByLabel('Odds')).toBeVisible()
+    await expect(page.getByLabel('Stake')).toBeVisible()
+    await expect(page.getByLabel('Game Date')).toBeVisible()
   })
 
-  test('should calculate potential winnings or redirect to login', async ({
+  test('should calculate potential winnings in demo mode', async ({
     page,
   }) => {
     await page.goto('/picks/add')
 
-    // Check if we're on login page first
-    const isOnLoginPage = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
-    
-    if (isOnLoginPage) {
-      // If redirected to login, that's expected behavior
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-      return
-    }
+    // Fill in odds and stake
+    await page.getByLabel('Odds').fill('-110')
+    await page.getByLabel('Stake').fill('100')
 
-    // If not on login page, try to test the form functionality
-    try {
-      // Fill in odds and stake
-      await page.getByLabel('Odds (American)').fill('-110', { timeout: 5000 })
-      await page.getByLabel('Stake ($)').fill('100', { timeout: 5000 })
-
-      // Check that potential winnings are calculated
-      await expect(page.getByText('$90.91')).toBeVisible({ timeout: 5000 })
-    } catch (error) {
-      // Check if we ended up on login page after form interaction
-      const redirectedToLogin = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
-      if (redirectedToLogin) {
-        await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-      } else {
-        throw error
-      }
-    }
+    // Check that potential winnings are calculated
+    await expect(page.getByText('$90.91')).toBeVisible()
   })
 
-  test('should navigate to all picks page or redirect to login', async ({
+  test('should navigate to all picks page in demo mode', async ({
     page,
   }) => {
     await page.goto('/dashboard')
 
-    // Check if we're on login page first
-    const isOnLoginPage = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
-    
-    if (isOnLoginPage) {
-      // If redirected to login, that's expected behavior
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-      return
-    }
-
-    // If not on login page, try to navigate to all picks page
-    try {
-      await page.getByRole('link', { name: 'View All Picks' }).click({ timeout: 5000 })
-      await expect(page).toHaveURL('/picks')
-      await expect(page.getByText('All Picks')).toBeVisible({ timeout: 5000 })
-    } catch (error) {
-      // Check if we ended up on login page after navigation attempt
-      const redirectedToLogin = await page.getByText('Welcome to BetTracker').isVisible().catch(() => false)
-      if (redirectedToLogin) {
-        await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-      } else {
-        throw error
-      }
-    }
+    // Should be able to navigate to all picks page in demo mode
+    await page.getByRole('link', { name: 'All Picks' }).click()
+    await expect(page).toHaveURL('/picks')
+    await expect(page.getByText('Demo Picks')).toBeVisible()
   })
 
-  test('should display filters on picks page or redirect to login', async ({
+  test('should display filters on picks page in demo mode', async ({
     page,
   }) => {
     await page.goto('/picks')
 
-    try {
-      // Check filter elements
-      await expect(page.getByText('Filters')).toBeVisible({ timeout: 5000 })
-      await expect(page.getByLabel('Sport')).toBeVisible()
-      await expect(page.getByLabel('Bet Type')).toBeVisible()
-      await expect(page.getByLabel('Status')).toBeVisible()
-    } catch {
-      // If redirected to login, that's expected
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-    }
+    // Check filter elements are visible in demo mode
+    await expect(page.getByText('Filters')).toBeVisible()
+    await expect(page.getByLabel('Sport')).toBeVisible()
+    await expect(page.getByLabel('Bet Type')).toBeVisible()
+    await expect(page.getByLabel('Status')).toBeVisible()
   })
 })
 
 test.describe('Analytics Page', () => {
-  test('should display analytics page or redirect to login', async ({
+  test('should display analytics page in demo mode', async ({
     page,
   }) => {
     await page.goto('/analytics')
 
-    try {
-      await expect(page.getByText('Analytics')).toBeVisible({ timeout: 5000 })
-      await expect(page.getByText('Performance by Sport')).toBeVisible()
-      await expect(page.getByText('Performance by Bet Type')).toBeVisible()
-    } catch {
-      // If redirected to login, that's expected
-      await expect(page.getByText('Welcome to BetTracker')).toBeVisible()
-    }
+    // Should show demo analytics
+    await expect(page.getByText('Demo Analytics')).toBeVisible()
+    await expect(page.getByText('Sign up to track your own performance!')).toBeVisible()
+    await expect(page.getByText('Win/Loss Distribution')).toBeVisible()
+    await expect(page.getByText('Performance by Sport')).toBeVisible()
   })
 })
 

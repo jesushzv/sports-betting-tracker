@@ -1,7 +1,6 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -56,7 +55,6 @@ interface PicksResponse {
 
 export default function PicksPage() {
   const { data: session, status } = useSession()
-  const router = useRouter()
   const [picks, setPicks] = useState<Pick[]>([])
   const [loading, setLoading] = useState(true)
   const [filters, setFilters] = useState({
@@ -72,11 +70,7 @@ export default function PicksPage() {
     pages: 0,
   })
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login')
-    }
-  }, [status, router])
+  // Remove authentication guard - allow demo mode
 
   const fetchPicks = useCallback(async () => {
     try {
@@ -102,10 +96,9 @@ export default function PicksPage() {
   }, [filters])
 
   useEffect(() => {
-    if (session) {
-      fetchPicks()
-    }
-  }, [session, fetchPicks])
+    // Fetch picks for both authenticated users and demo mode
+    fetchPicks()
+  }, [fetchPicks])
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters(prev => ({ ...prev, [key]: value, page: 1 }))
@@ -185,7 +178,10 @@ export default function PicksPage() {
         <div>
           <h1 className="text-3xl font-bold">All Picks</h1>
           <p className="text-muted-foreground">
-            Manage and track all your betting picks
+            {session 
+              ? 'Manage and track all your betting picks'
+              : 'Demo Picks - Sign up to track your own picks!'
+            }
           </p>
         </div>
         <Button asChild>

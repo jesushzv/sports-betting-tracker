@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
+import { demoPicks } from '@/lib/demo-data'
 
 const createPickSchema = z.object({
   sport: z.enum(['NFL', 'NBA', 'MLB', 'NHL', 'UFC']),
@@ -17,8 +18,34 @@ const createPickSchema = z.object({
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
+    
+    // Return demo data for unauthenticated users
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      const { searchParams } = new URL(request.url)
+      const sport = searchParams.get('sport')
+      const betType = searchParams.get('betType')
+      const status = searchParams.get('status')
+      const page = parseInt(searchParams.get('page') || '1')
+      const limit = parseInt(searchParams.get('limit') || '20')
+      
+      let filteredPicks = demoPicks
+      
+      if (sport) filteredPicks = filteredPicks.filter(p => p.sport === sport)
+      if (betType) filteredPicks = filteredPicks.filter(p => p.betType === betType)
+      if (status) filteredPicks = filteredPicks.filter(p => p.status === status)
+      
+      const skip = (page - 1) * limit
+      const paginatedPicks = filteredPicks.slice(skip, skip + limit)
+      
+      return NextResponse.json({
+        picks: paginatedPicks,
+        pagination: {
+          page,
+          limit,
+          total: filteredPicks.length,
+          pages: Math.ceil(filteredPicks.length / limit),
+        },
+      })
     }
 
     const { searchParams } = new URL(request.url)
@@ -70,7 +97,7 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required to create picks' }, { status: 401 })
     }
 
     const body = await request.json()

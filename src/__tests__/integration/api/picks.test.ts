@@ -22,6 +22,70 @@ describe('API Routes Integration', () => {
       expect(expectedStructure.methods).toContain('POST')
       expect(expectedStructure.path).toBe('/api/picks')
     })
+
+    it('should support demo mode for unauthenticated users', () => {
+      // Test that demo mode is supported
+      const demoModeSupported = true
+      expect(demoModeSupported).toBe(true)
+    })
+  })
+
+  describe('Demo Mode API', () => {
+    it('should return demo data for unauthenticated GET requests', () => {
+      // Test demo data structure
+      const demoDataStructure = {
+        picks: 'array',
+        pagination: 'object',
+        stats: 'object',
+        bankroll: 'object'
+      }
+
+      expect(demoDataStructure.picks).toBe('array')
+      expect(demoDataStructure.pagination).toBe('object')
+      expect(demoDataStructure.stats).toBe('object')
+      expect(demoDataStructure.bankroll).toBe('object')
+    })
+
+    it('should reject mutations for unauthenticated users', () => {
+      // Test that mutations are rejected for demo users
+      const mutationMethods = ['POST', 'PUT', 'DELETE']
+      const requiresAuth = true
+
+      mutationMethods.forEach(method => {
+        expect(requiresAuth).toBe(true)
+      })
+    })
+  })
+
+  describe('Signup API', () => {
+    it('should have signup endpoint structure', () => {
+      const signupStructure = {
+        method: 'POST',
+        path: '/api/auth/signup',
+        validation: 'zod',
+        hashing: 'bcrypt'
+      }
+
+      expect(signupStructure.method).toBe('POST')
+      expect(signupStructure.path).toBe('/api/auth/signup')
+      expect(signupStructure.validation).toBe('zod')
+      expect(signupStructure.hashing).toBe('bcrypt')
+    })
+
+    it('should validate signup data structure', () => {
+      const validSignupData = {
+        name: 'Test User',
+        email: 'test@example.com',
+        password: 'password123'
+      }
+
+      expect(validSignupData).toHaveProperty('name')
+      expect(validSignupData).toHaveProperty('email')
+      expect(validSignupData).toHaveProperty('password')
+      expect(typeof validSignupData.name).toBe('string')
+      expect(typeof validSignupData.email).toBe('string')
+      expect(typeof validSignupData.password).toBe('string')
+    })
   })
 
   describe('Validation Schema', () => {

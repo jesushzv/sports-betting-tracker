@@ -26,40 +26,43 @@ export function Navigation() {
               <span className="text-xl font-bold">BetTracker</span>
             </Link>
 
-            {session && (
-              <div className="hidden items-center space-x-6 md:flex">
-                <Link
-                  href="/dashboard"
-                  className="hover:text-primary text-sm font-medium"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  href="/picks"
-                  className="hover:text-primary text-sm font-medium"
-                >
-                  All Picks
-                </Link>
-                <Link
-                  href="/parlays"
-                  className="hover:text-primary text-sm font-medium"
-                >
-                  Parlays
-                </Link>
-                <Link
-                  href="/bankroll"
-                  className="hover:text-primary text-sm font-medium"
-                >
-                  Bankroll
-                </Link>
-                <Link
-                  href="/analytics"
-                  className="hover:text-primary text-sm font-medium"
-                >
-                  Analytics
-                </Link>
-              </div>
-            )}
+            <div className="hidden items-center space-x-6 md:flex">
+              <Link
+                href="/dashboard"
+                className="hover:text-primary text-sm font-medium"
+              >
+                Dashboard
+                {!session && <span className="ml-1 text-xs text-muted-foreground">(Demo)</span>}
+              </Link>
+              <Link
+                href="/picks"
+                className="hover:text-primary text-sm font-medium"
+              >
+                All Picks
+                {!session && <span className="ml-1 text-xs text-muted-foreground">(Demo)</span>}
+              </Link>
+              <Link
+                href="/parlays"
+                className="hover:text-primary text-sm font-medium"
+              >
+                Parlays
+                {!session && <span className="ml-1 text-xs text-muted-foreground">(Demo)</span>}
+              </Link>
+              <Link
+                href="/bankroll"
+                className="hover:text-primary text-sm font-medium"
+              >
+                Bankroll
+                {!session && <span className="ml-1 text-xs text-muted-foreground">(Demo)</span>}
+              </Link>
+              <Link
+                href="/analytics"
+                className="hover:text-primary text-sm font-medium"
+              >
+                Analytics
+                {!session && <span className="ml-1 text-xs text-muted-foreground">(Demo)</span>}
+              </Link>
+            </div>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -103,7 +106,14 @@ export function Navigation() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button onClick={() => signIn()}>Sign In</Button>
+              <div className="flex items-center space-x-2">
+                <Button variant="outline" onClick={() => signIn()}>
+                  Sign In
+                </Button>
+                <Button onClick={() => signIn()}>
+                  Sign Up
+                </Button>
+              </div>
             )}
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -41,7 +42,9 @@ interface AddPickFormProps {
 
 export function AddPickForm({ onSuccess }: AddPickFormProps) {
   const router = useRouter()
+  const { data: session } = useSession()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showSignUpModal, setShowSignUpModal] = useState(false)
   const [formData, setFormData] = useState({
     sport: '',
     betType: '',
@@ -88,6 +91,13 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Show sign-up modal for unauthenticated users
+    if (!session) {
+      setShowSignUpModal(true)
+      return
+    }
+    
     setIsSubmitting(true)
 
     try {
@@ -140,13 +150,17 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
   }
 
   return (
-    <Card className="mx-auto w-full max-w-2xl">
-      <CardHeader>
-        <CardTitle>Add New Pick</CardTitle>
-        <CardDescription>
-          Record your sports betting pick with all the details
-        </CardDescription>
-      </CardHeader>
+    <>
+      <Card className="mx-auto w-full max-w-2xl">
+        <CardHeader>
+          <CardTitle>Add New Pick</CardTitle>
+          <CardDescription>
+            {session 
+              ? 'Record your sports betting pick with all the details'
+              : 'Try the form below - Sign up to save your picks!'
+            }
+          </CardDescription>
+        </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -268,5 +282,45 @@ export function AddPickForm({ onSuccess }: AddPickFormProps) {
         </form>
       </CardContent>
     </Card>
+
+    {/* Sign-up Modal */}
+    {showSignUpModal && (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <Card className="w-full max-w-md mx-4">
+          <CardHeader>
+            <CardTitle>Sign Up to Save Your Picks!</CardTitle>
+            <CardDescription>
+              You&apos;ve filled out a great pick! Sign up to save it and start tracking your betting performance.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="bg-muted p-4 rounded-lg">
+              <h4 className="font-medium mb-2">Your Pick:</h4>
+              <p><strong>Sport:</strong> {SPORTS.find(s => s.value === formData.sport)?.label}</p>
+              <p><strong>Type:</strong> {BET_TYPES.find(t => t.value === formData.betType)?.label}</p>
+              <p><strong>Description:</strong> {formData.description}</p>
+              <p><strong>Odds:</strong> {formData.odds}</p>
+              <p><strong>Stake:</strong> {formData.stake ? formatCurrency(parseFloat(formData.stake)) : ''}</p>
+            </div>
+            <div className="flex space-x-2">
+              <Button 
+                onClick={() => router.push('/login')} 
+                className="flex-1"
+              >
+                Sign Up Now
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => setShowSignUpModal(false)}
+                className="flex-1"
+              >
+                Maybe Later
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    )}
+    </>
   )
 }

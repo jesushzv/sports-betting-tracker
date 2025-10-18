@@ -45,6 +45,37 @@ describe('Navigation Component', () => {
     expect(signInButton).toBeInTheDocument()
   })
 
+  it('renders all navigation links for unauthenticated users (demo mode)', () => {
+    mockUseSession.mockReturnValue({
+      data: null,
+      status: 'unauthenticated',
+      update: jest.fn(),
+    })
+
+    render(<Navigation />)
+
+    // Check that all main navigation links are present for demo mode
+    expect(screen.getByRole('link', { name: /dashboard/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /all picks/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /parlays/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /bankroll/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /analytics/i })).toBeInTheDocument()
+  })
+
+  it('shows demo mode indicator for unauthenticated users', () => {
+    mockUseSession.mockReturnValue({
+      data: null,
+      status: 'unauthenticated',
+      update: jest.fn(),
+    })
+
+    render(<Navigation />)
+
+    // Should show demo mode indicator in navigation links
+    const demoIndicators = screen.getAllByText('(Demo)')
+    expect(demoIndicators.length).toBeGreaterThan(0)
+  })
+
   it('sign in button has proper click handler', async () => {
     const user = userEvent.setup()
     mockUseSession.mockReturnValue({

@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
+import { demoParlays, demoPicks } from '@/lib/demo-data'
 
 const updateParlaySchema = z.object({
   status: z.enum(['PENDING', 'WON', 'LOST', 'PUSH']).optional(),
@@ -15,11 +16,36 @@ export async function GET(
 ) {
   try {
     const session = await getServerSession(authOptions)
+    const { id } = await params
+    
+    // Return demo data for unauthenticated users
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      const demoParlay = demoParlays.find(p => p.id === id)
+      if (!demoParlay) {
+        return NextResponse.json({ error: 'Parlay not found' }, { status: 404 })
+      }
+      
+      const parlayWithLegs = {
+        ...demoParlay,
+        legs: [
+          {
+            id: `${demoParlay.id}-leg-1`,
+            parlayId: demoParlay.id,
+            pickId: 'demo-pick-1',
+            pick: demoPicks.find(p => p.id === 'demo-pick-1'),
+          },
+          {
+            id: `${demoParlay.id}-leg-2`,
+            parlayId: demoParlay.id,
+            pickId: 'demo-pick-4',
+            pick: demoPicks.find(p => p.id === 'demo-pick-4'),
+          },
+        ],
+      }
+      
+      return NextResponse.json(parlayWithLegs)
     }
 
-    const { id } = await params
     const parlay = await prisma.parlay.findFirst({
       where: {
         id,
@@ -56,7 +82,7 @@ export async function PUT(
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required to update parlays' }, { status: 401 })
     }
 
     const body = await request.json()
@@ -165,7 +191,7 @@ export async function DELETE(
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required to delete parlays' }, { status: 401 })
     }
 
     // Check if parlay exists and belongs to user

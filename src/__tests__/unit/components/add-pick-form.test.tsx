@@ -12,12 +12,23 @@ jest.mock('next/navigation', () => ({
   }),
 }))
 
+// Mock NextAuth
+const mockUseSession = jest.fn()
+jest.mock('next-auth/react', () => ({
+  useSession: () => mockUseSession(),
+}))
+
 // Mock fetch
 global.fetch = jest.fn()
 
 describe('AddPickForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    // Default to authenticated user
+    mockUseSession.mockReturnValue({
+      data: { user: { id: '1', name: 'Test User' } },
+      status: 'authenticated'
+    })
   })
 
   it('renders all form fields', () => {
@@ -63,7 +74,7 @@ describe('AddPickForm', () => {
     })
   })
 
-  it('submits form with valid data', async () => {
+  it('submits form with valid data for authenticated user', async () => {
     const user = userEvent.setup()
     const mockFetch = fetch as jest.MockedFunction<typeof fetch>
     mockFetch.mockResolvedValueOnce({
@@ -98,6 +109,53 @@ describe('AddPickForm', () => {
         }),
       })
     })
+  })
+
+  it('shows sign-up modal for unauthenticated user', async () => {
+    // Mock unauthenticated user
+    mockUseSession.mockReturnValue({
+      data: null,
+      status: 'unauthenticated'
+    })
+
+    const user = userEvent.setup()
+    render(<AddPickForm />)
+
+    // Fill out the form
+    await user.type(screen.getByLabelText(/pick description/i), 'Lakers -5.5')
+    await user.type(screen.getByLabelText(/odds/i), '-110')
+    await user.type(screen.getByLabelText(/stake/i), '100')
+    await user.type(screen.getByLabelText(/game date/i), '2024-01-01T20:00')
+
+    // Submit the form
+    await user.click(screen.getByRole('button', { name: /create pick/i }))
+
+    // Should show sign-up modal instead of submitting
+    await waitFor(() => {
+      expect(screen.getByText('Sign Up to Save Your Picks!')).toBeInTheDocument()
+      expect(screen.getByText('You\'ve filled out a great pick! Sign up to save it and start tracking your betting performance.')).toBeInTheDocument()
+    })
+
+    // Should not call fetch
+    expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it('shows demo description for unauthenticated user', () => {
+    // Mock unauthenticated user
+    mockUseSession.mockReturnValue({
+      data: null,
+      status: 'unauthenticated'
+    })
+
+    render(<AddPickForm />)
+
+    expect(screen.getByText('Try the form below - Sign up to save your picks!')).toBeInTheDocument()
+  })
+
+  it('shows authenticated description for authenticated user', () => {
+    render(<AddPickForm />)
+
+    expect(screen.getByText('Record your sports betting pick with all the details')).toBeInTheDocument()
   })
 
   it('shows error message on submission failure', async () => {

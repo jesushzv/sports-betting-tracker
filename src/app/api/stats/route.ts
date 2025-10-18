@@ -2,13 +2,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { getDemoStats } from '@/lib/demo-data'
 
 // GET /api/stats - Get user statistics
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
+    
+    // Return demo data for unauthenticated users
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json(getDemoStats())
     }
 
     const { searchParams } = new URL(request.url)

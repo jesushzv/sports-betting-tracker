@@ -1,7 +1,6 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -70,7 +69,6 @@ interface ParlaysResponse {
 
 export default function ParlaysPage() {
   const { data: session, status } = useSession()
-  const router = useRouter()
   const [parlays, setParlays] = useState<Parlay[]>([])
   const [loading, setLoading] = useState(true)
   const [filters, setFilters] = useState({
@@ -84,11 +82,7 @@ export default function ParlaysPage() {
     pages: 0,
   })
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login')
-    }
-  }, [status, router])
+  // Remove authentication guard - allow demo mode
 
   const fetchParlays = useCallback(async () => {
     try {
@@ -112,10 +106,9 @@ export default function ParlaysPage() {
   }, [filters])
 
   useEffect(() => {
-    if (session) {
-      fetchParlays()
-    }
-  }, [session, fetchParlays])
+    // Fetch parlays for both authenticated users and demo mode
+    fetchParlays()
+  }, [fetchParlays])
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters(prev => ({ ...prev, [key]: value, page: 1 }))
@@ -195,7 +188,10 @@ export default function ParlaysPage() {
         <div>
           <h1 className="text-3xl font-bold">All Parlays</h1>
           <p className="text-muted-foreground">
-            Manage and track all your parlay bets
+            {session 
+              ? 'Manage and track all your parlay bets'
+              : 'Demo Parlays - Sign up to create your own parlays!'
+            }
           </p>
         </div>
         <div className="flex gap-2">

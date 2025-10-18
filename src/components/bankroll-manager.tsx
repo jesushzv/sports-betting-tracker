@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -64,6 +65,7 @@ interface BankrollData {
 }
 
 export function BankrollManager() {
+  const { data: session } = useSession()
   const [bankrollData, setBankrollData] = useState<BankrollData | null>(null)
   const [loading, setLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -180,7 +182,10 @@ export function BankrollManager() {
         <div>
           <h1 className="text-3xl font-bold">Bankroll Management</h1>
           <p className="text-muted-foreground">
-            Track your deposits, withdrawals, and betting activity
+            {session 
+              ? 'Track your deposits, withdrawals, and betting activity'
+              : 'Demo Bankroll - Sign up to manage your own bankroll!'
+            }
           </p>
         </div>
         <Button onClick={() => setShowAddTransaction(true)}>

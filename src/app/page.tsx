@@ -2,7 +2,6 @@
 
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import {
@@ -18,11 +17,7 @@ export default function Home() {
   const { data: session, status } = useSession()
   const router = useRouter()
 
-  useEffect(() => {
-    if (session) {
-      router.push('/dashboard')
-    }
-  }, [session, router])
+  // Don't auto-redirect authenticated users - let them choose
 
   const handleGetStarted = () => {
     if (session) {
@@ -57,12 +52,25 @@ export default function Home() {
           effectively.
         </p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
-          <Button size="lg" className="px-8 text-lg" onClick={handleGetStarted}>
-            Get Started Free
-          </Button>
-          <Button variant="outline" size="lg" className="px-8 text-lg" asChild>
-            <Link href="/login">Learn More</Link>
-          </Button>
+          {session ? (
+            <>
+              <Button size="lg" className="px-8 text-lg" asChild>
+                <Link href="/dashboard">Go to Dashboard</Link>
+              </Button>
+              <Button variant="outline" size="lg" className="px-8 text-lg" asChild>
+                <Link href="/analytics">View Analytics</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button size="lg" className="px-8 text-lg" onClick={handleGetStarted}>
+                Get Started Free
+              </Button>
+              <Button variant="outline" size="lg" className="px-8 text-lg" asChild>
+                <Link href="/dashboard">Try Demo</Link>
+              </Button>
+            </>
+          )}
         </div>
       </div>
 
@@ -152,9 +160,15 @@ export default function Home() {
           Join thousands of bettors who trust BetTracker to keep their records
           straight.
         </p>
-        <Button size="lg" className="px-8 text-lg" onClick={handleGetStarted}>
-          Sign Up Free
-        </Button>
+        {session ? (
+          <Button size="lg" className="px-8 text-lg" asChild>
+            <Link href="/dashboard">Go to Dashboard</Link>
+          </Button>
+        ) : (
+          <Button size="lg" className="px-8 text-lg" onClick={handleGetStarted}>
+            Sign Up Free
+          </Button>
+        )}
       </div>
     </div>
   )

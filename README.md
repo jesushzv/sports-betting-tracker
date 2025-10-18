@@ -10,6 +10,8 @@ A comprehensive web application for professional and amateur sports bettors to t
 - **Performance Tracking**: Monitor win rates, profit/loss, and ROI across different sports and bet types
 - **Bankroll Management**: Track deposits, withdrawals, and transaction history
 - **Analytics Dashboard**: Detailed performance analysis with charts and insights
+- **Demo Mode**: Try the app with realistic sample data before signing up
+- **Multiple Authentication**: Sign up with email/password or OAuth providers (Google, Discord)
 
 ### Supported Sports
 
@@ -31,7 +33,7 @@ A comprehensive web application for professional and amateur sports bettors to t
 - **Frontend**: Next.js 14+ (App Router), React, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes with Node.js
 - **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: NextAuth.js with OAuth providers (Google, Discord)
+- **Authentication**: NextAuth.js with OAuth providers (Google, Discord) and email/password authentication
 - **UI Components**: shadcn/ui
 - **Charts**: Recharts
 - **Deployment**: Vercel-ready
@@ -77,7 +79,7 @@ A comprehensive web application for professional and amateur sports bettors to t
    NEXTAUTH_URL="http://localhost:3000"
    NEXTAUTH_SECRET="your-secret-key"
 
-   # OAuth Providers
+   # OAuth Providers (Optional - email/password works without these)
    GOOGLE_CLIENT_ID="your-google-client-id"
    GOOGLE_CLIENT_SECRET="your-google-client-secret"
    DISCORD_CLIENT_ID="your-discord-client-id"
@@ -104,9 +106,19 @@ A comprehensive web application for professional and amateur sports bettors to t
 
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-## OAuth Setup
+   You can immediately explore the app in demo mode with realistic sample data, or sign up to start tracking your own bets!
 
-### Google OAuth
+## Authentication Setup
+
+### Email/Password Authentication
+
+Email/password authentication works out of the box with no additional setup required. Users can sign up with their email and password, and the system will handle password hashing and validation automatically.
+
+### OAuth Setup (Optional)
+
+OAuth providers are optional but provide a convenient sign-in experience for users.
+
+#### Google OAuth
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Create a new project or select existing one
@@ -116,7 +128,7 @@ A comprehensive web application for professional and amateur sports bettors to t
    - `http://localhost:3000/api/auth/callback/google` (development)
    - `https://yourdomain.com/api/auth/callback/google` (production)
 
-### Discord OAuth
+#### Discord OAuth
 
 1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
 2. Create a new application
@@ -129,7 +141,7 @@ A comprehensive web application for professional and amateur sports bettors to t
 
 The application uses the following main entities:
 
-- **Users**: User accounts with authentication
+- **Users**: User accounts with authentication (OAuth and email/password)
 - **Picks**: Individual betting picks
 - **Parlays**: Multi-leg betting combinations
 - **ParlayLegs**: Links between parlays and individual picks
@@ -139,15 +151,19 @@ The application uses the following main entities:
 
 ### Picks
 
-- `GET /api/picks` - Get all picks for authenticated user
-- `POST /api/picks` - Create a new pick
-- `GET /api/picks/[id]` - Get specific pick
-- `PUT /api/picks/[id]` - Update pick (including settlement)
-- `DELETE /api/picks/[id]` - Delete pick
+- `GET /api/picks` - Get all picks for authenticated user (returns demo data for unauthenticated users)
+- `POST /api/picks` - Create a new pick (requires authentication)
+- `GET /api/picks/[id]` - Get specific pick (returns demo data for unauthenticated users)
+- `PUT /api/picks/[id]` - Update pick (including settlement, requires authentication)
+- `DELETE /api/picks/[id]` - Delete pick (requires authentication)
 
 ### Statistics
 
-- `GET /api/stats` - Get user statistics and analytics data
+- `GET /api/stats` - Get user statistics and analytics data (returns demo data for unauthenticated users)
+
+### Authentication
+
+- `POST /api/auth/signup` - Create new account with email/password
 
 ## Deployment
 
@@ -182,9 +198,15 @@ The app can be deployed to any platform that supports Next.js:
 
 ## Usage
 
+### Getting Started
+
+1. **Try Demo Mode**: Visit the app and explore with realistic sample data
+2. **Sign Up**: Create an account with email/password or use OAuth providers
+3. **Start Tracking**: Begin recording your own betting picks
+
 ### Adding Picks
 
-1. Sign in with Google or Discord
+1. Sign in with your account (email/password, Google, or Discord)
 2. Navigate to "Add Pick" from the dashboard
 3. Fill in the pick details:
    - Sport (NFL, NBA, MLB, NHL, UFC)
@@ -256,15 +278,18 @@ npm run test:all
 
 - ✅ Core pick management
 - ✅ Basic analytics
-- ✅ User authentication
+- ✅ User authentication (OAuth + email/password)
 - ✅ Dashboard
+- ✅ Demo mode for visitors
+- ✅ Parlay system
+- ✅ Bankroll management
 
 ### Phase 2 (Planned)
 
-- 🔄 Parlay system
-- 🔄 Bankroll management
 - 🔄 Profile settings
 - 🔄 Export functionality
+- 🔄 Advanced analytics
+- 🔄 Mobile optimization
 
 ### Phase 3 (Future)
 

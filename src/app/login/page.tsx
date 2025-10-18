@@ -11,11 +11,21 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
 
 export default function LoginPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isSignUp, setIsSignUp] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
 
   useEffect(() => {
     // Check if user is already logged in
@@ -50,16 +60,195 @@ export default function LoginPage() {
     }
   }
 
+  const handleEmailPasswordSignIn = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const result = await signIn('credentials', {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setError('Invalid email or password')
+      } else {
+        router.push('/dashboard')
+      }
+    } catch (error) {
+      console.error('Sign in error:', error)
+      setError('An unexpected error occurred during sign-in')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setError(null)
+
+    // Validation
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match')
+      setIsLoading(false)
+      return
+    }
+
+    if (formData.password.length < 8) {
+      setError('Password must be at least 8 characters long')
+      setIsLoading(false)
+      return
+    }
+
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.error || 'An error occurred during sign up')
+        return
+      }
+
+      // Sign in after successful signup
+      const result = await signIn('credentials', {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setError('Account created but sign in failed. Please try signing in.')
+      } else {
+        router.push('/dashboard')
+      }
+    } catch (error) {
+      console.error('Sign up error:', error)
+      setError('An unexpected error occurred during sign up')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }))
+  }
+
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Welcome to BetTracker</CardTitle>
+          <CardTitle className="text-2xl">
+            {isSignUp ? 'Create Account' : 'Welcome to BetTracker'}
+          </CardTitle>
           <CardDescription>
-            Sign in to start tracking your sports betting picks
+            {isSignUp 
+              ? 'Sign up to start tracking your sports betting picks'
+              : 'Sign in to start tracking your sports betting picks'
+            }
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {/* Email/Password Form */}
+          <form onSubmit={isSignUp ? handleSignUp : handleEmailPasswordSignIn} className="space-y-4">
+            {isSignUp && (
+              <div className="space-y-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isLoading}
+                />
+              </div>
+            )}
+            
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+                disabled={isLoading}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+                disabled={isLoading}
+                minLength={8}
+              />
+            </div>
+            
+            {isSignUp && (
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isLoading}
+                  minLength={8}
+                />
+              </div>
+            )}
+            
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full"
+            >
+              {isLoading 
+                ? (isSignUp ? 'Creating Account...' : 'Signing In...')
+                : (isSignUp ? 'Create Account' : 'Sign In')
+              }
+            </Button>
+          </form>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <Separator className="w-full" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          {/* OAuth Buttons */}
           <Button
             onClick={handleGoogleSignIn}
             disabled={isLoading}
@@ -103,11 +292,24 @@ export default function LoginPage() {
             Continue with Discord
           </Button>
 
-          {isLoading && (
-            <div className="text-muted-foreground text-center text-sm">
-              Signing you in...
-            </div>
-          )}
+          {/* Toggle between sign in and sign up */}
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={() => {
+                setIsSignUp(!isSignUp)
+                setError(null)
+                setFormData({ name: '', email: '', password: '', confirmPassword: '' })
+              }}
+              className="text-sm text-muted-foreground hover:text-primary"
+              disabled={isLoading}
+            >
+              {isSignUp 
+                ? 'Already have an account? Sign in'
+                : "Don't have an account? Sign up"
+              }
+            </button>
+          </div>
 
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-md p-3 text-red-700 text-sm">

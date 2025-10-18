@@ -1,7 +1,6 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -53,20 +52,14 @@ interface Stats {
 
 export default function DashboardPage() {
   const { data: session, status } = useSession()
-  const router = useRouter()
   const [stats, setStats] = useState<Stats | null>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login')
-    }
-  }, [status, router])
+  // Remove authentication guard - allow demo mode
 
   useEffect(() => {
-    if (session) {
-      fetchStats()
-    }
+    // Fetch stats for both authenticated users and demo mode
+    fetchStats()
   }, [session])
 
   const fetchStats = async () => {
@@ -94,9 +87,7 @@ export default function DashboardPage() {
     )
   }
 
-  if (!session) {
-    return null
-  }
+  // Allow demo mode - no need to return null for unauthenticated users
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -131,7 +122,10 @@ export default function DashboardPage() {
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back, {session.user?.name || 'User'}!
+            {session 
+              ? `Welcome back, ${session.user?.name || 'User'}!`
+              : 'Demo Dashboard - Sign up to track your own bets!'
+            }
           </p>
         </div>
         <div className="flex gap-2">

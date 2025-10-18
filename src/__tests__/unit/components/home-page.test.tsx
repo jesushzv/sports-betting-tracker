@@ -34,7 +34,7 @@ describe('Home Page', () => {
     })
   })
 
-  it('renders all main buttons', () => {
+  it('renders all main buttons for unauthenticated user', () => {
     mockUseSession.mockReturnValue({
       data: null,
       status: 'unauthenticated',
@@ -44,8 +44,25 @@ describe('Home Page', () => {
     render(<Home />)
 
     expect(screen.getByRole('button', { name: /get started free/i })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /learn more/i })).toBeInTheDocument() // This is a link, not a button
+    expect(screen.getByRole('link', { name: /try demo/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /sign up free/i })).toBeInTheDocument()
+  })
+
+  it('renders different buttons for authenticated user', () => {
+    mockUseSession.mockReturnValue({
+      data: {
+        user: { name: 'Test User', email: 'test@example.com' },
+        expires: '2024-12-31',
+      },
+      status: 'authenticated',
+      update: jest.fn(),
+    })
+
+    render(<Home />)
+
+    const dashboardLinks = screen.getAllByRole('link', { name: /go to dashboard/i })
+    expect(dashboardLinks).toHaveLength(2) // Should have 2 dashboard links
+    expect(screen.getByRole('link', { name: /view analytics/i })).toBeInTheDocument()
   })
 
   it('navigates to login when Get Started Free button is clicked for unauthenticated user', async () => {
@@ -69,24 +86,19 @@ describe('Home Page', () => {
     expect(mockPush).toHaveBeenCalledWith('/login')
   })
 
-  it('navigates to dashboard when Get Started Free button is clicked for authenticated user', async () => {
+  it('Try Demo button navigates to dashboard for unauthenticated user', async () => {
     const user = userEvent.setup()
     mockUseSession.mockReturnValue({
-      data: {
-        user: { name: 'Test User', email: 'test@example.com' },
-        expires: '2024-12-31',
-      },
-      status: 'authenticated',
+      data: null,
+      status: 'unauthenticated',
       update: jest.fn(),
     })
 
     render(<Home />)
 
-    const getStartedButton = screen.getByRole('button', { name: /get started free/i })
+    const tryDemoLink = screen.getByRole('link', { name: /try demo/i })
     
-    await user.click(getStartedButton)
-
-    expect(mockPush).toHaveBeenCalledWith('/dashboard')
+    expect(tryDemoLink).toHaveAttribute('href', '/dashboard')
   })
 
   it('navigates to login when Sign Up Free button is clicked', async () => {
@@ -106,20 +118,24 @@ describe('Home Page', () => {
     expect(mockPush).toHaveBeenCalledWith('/login')
   })
 
-  it('Learn More button has proper navigation', async () => {
+  it('Go to Dashboard button has proper navigation for authenticated user', async () => {
     mockUseSession.mockReturnValue({
-      data: null,
-      status: 'unauthenticated',
+      data: {
+        user: { name: 'Test User', email: 'test@example.com' },
+        expires: '2024-12-31',
+      },
+      status: 'authenticated',
       update: jest.fn(),
     })
 
     render(<Home />)
 
-    const learnMoreLink = screen.getByRole('link', { name: /learn more/i })
+    const dashboardLinks = screen.getAllByRole('link', { name: /go to dashboard/i })
     
-    // Check that it's a proper link with href
-    expect(learnMoreLink).toBeInTheDocument()
-    expect(learnMoreLink).toHaveAttribute('href', '/login')
+    // Check that all dashboard links have proper href
+    dashboardLinks.forEach(link => {
+      expect(link).toHaveAttribute('href', '/dashboard')
+    })
   })
 
   it('all buttons have proper interactive functionality', async () => {

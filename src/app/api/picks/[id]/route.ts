@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
+import { demoPicks } from '@/lib/demo-data'
 
 const updatePickSchema = z.object({
   status: z.enum(['PENDING', 'WON', 'LOST', 'PUSH']).optional(),
@@ -19,11 +20,17 @@ export async function GET(
 ) {
   try {
     const session = await getServerSession(authOptions)
+    const { id } = await params
+    
+    // Return demo data for unauthenticated users
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      const demoPick = demoPicks.find(p => p.id === id)
+      if (!demoPick) {
+        return NextResponse.json({ error: 'Pick not found' }, { status: 404 })
+      }
+      return NextResponse.json(demoPick)
     }
 
-    const { id } = await params
     const pick = await prisma.pick.findFirst({
       where: {
         id,
@@ -53,7 +60,7 @@ export async function PUT(
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required to update picks' }, { status: 401 })
     }
 
     const body = await request.json()
@@ -167,7 +174,7 @@ export async function DELETE(
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user || !session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required to delete picks' }, { status: 401 })
     }
 
     // Check if pick exists and belongs to user

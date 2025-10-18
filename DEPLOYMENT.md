@@ -7,7 +7,7 @@ This guide covers deploying BetTracker to production using Vercel and Neon Postg
 - GitHub repository with the code
 - Vercel account
 - Neon account (or other PostgreSQL provider)
-- OAuth provider accounts (Google, Discord)
+- OAuth provider accounts (Google, Discord) - Optional, email/password works without these
 
 ## 1. Database Setup (Neon)
 
@@ -44,9 +44,21 @@ npm run db:push
 npm run db:migrate
 ```
 
-## 2. OAuth Provider Setup
+## 2. Authentication Setup
 
-### Google OAuth
+### Email/Password Authentication
+
+Email/password authentication works out of the box with no additional setup required. The system automatically handles:
+- Password hashing with bcrypt
+- Input validation with Zod schemas
+- User registration and login
+- Session management
+
+### OAuth Provider Setup (Optional)
+
+OAuth providers are optional but provide a convenient sign-in experience for users.
+
+#### Google OAuth
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Create/select project
@@ -57,7 +69,7 @@ npm run db:migrate
    - `https://staging.bettracker.com/api/auth/callback/google` (staging)
    - `https://bettracker.com/api/auth/callback/google` (production)
 
-### Discord OAuth
+#### Discord OAuth
 
 1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
 2. Create new application
@@ -94,7 +106,7 @@ DATABASE_URL="postgresql://..."
 NEXTAUTH_URL="https://yourdomain.com"
 NEXTAUTH_SECRET="your-secret-key"
 
-# OAuth Providers
+# OAuth Providers (Optional - email/password works without these)
 GOOGLE_CLIENT_ID="your-google-client-id"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
 DISCORD_CLIENT_ID="your-discord-client-id"
@@ -140,7 +152,7 @@ DATABASE_URL="postgresql://..."
 NEXTAUTH_SECRET="your-secret"
 NEXTAUTH_URL="https://yourdomain.com"
 
-# OAuth
+# OAuth (Optional)
 GOOGLE_CLIENT_ID="your-google-client-id"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
 DISCORD_CLIENT_ID="your-discord-client-id"
@@ -239,7 +251,7 @@ Neon provides automatic daily backups. For additional safety:
 - [ ] All tests passing
 - [ ] Environment variables configured
 - [ ] Database migrations applied
-- [ ] OAuth providers configured
+- [ ] OAuth providers configured (optional)
 - [ ] Domain DNS configured
 - [ ] SSL certificates valid
 

@@ -115,17 +115,17 @@ describe('Button Functionality Integration Tests', () => {
 
       // These are the specific buttons that had issues before
       const getStartedButton = screen.getByRole('button', { name: /get started free/i })
-      const learnMoreLink = screen.getByRole('link', { name: /learn more/i }) // This is a link, not button
+      const tryDemoLink = screen.getByRole('link', { name: /try demo/i }) // This is a link, not button
       const signUpButton = screen.getByRole('button', { name: /sign up free/i })
 
       // All buttons should be clickable
       expect(getStartedButton).toBeInTheDocument()
-      expect(learnMoreLink).toBeInTheDocument()
+      expect(tryDemoLink).toBeInTheDocument()
       expect(signUpButton).toBeInTheDocument()
 
       // Clicking should not throw errors
       await expect(user.click(getStartedButton)).resolves.not.toThrow()
-      await expect(user.click(learnMoreLink)).resolves.not.toThrow()
+      await expect(user.click(tryDemoLink)).resolves.not.toThrow()
       await expect(user.click(signUpButton)).resolves.not.toThrow()
 
       // Navigation should be triggered for appropriate buttons
