@@ -5,24 +5,26 @@ import DiscordProvider from 'next-auth/providers/discord'
 import { prisma } from './prisma'
 
 // Helper function to get the correct NEXTAUTH_URL
-// function getAuthUrl(): string {
-//   if (process.env.NEXTAUTH_URL) {
-//     return process.env.NEXTAUTH_URL
-//   }
-//   
-//   // Fallback for development
-//   if (process.env.NODE_ENV === 'development') {
-//     return 'http://localhost:3000'
-//   }
-//   
-//   // For production, use Vercel URL or throw error
-//   throw new Error('NEXTAUTH_URL environment variable is required')
-// }
+function getAuthUrl(): string {
+  if (process.env.NEXTAUTH_URL) {
+    return process.env.NEXTAUTH_URL
+  }
+  
+  // Fallback for development
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:3000'
+  }
+  
+  // For production, use Vercel URL or throw error
+  throw new Error('NEXTAUTH_URL environment variable is required')
+}
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV === 'development',
+  // Ensure proper URL configuration
+  ...(process.env.NEXTAUTH_URL && { url: process.env.NEXTAUTH_URL }),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -58,6 +60,20 @@ export const authOptions: NextAuthOptions = {
     async signOut({ token }) {
       console.log('User signed out:', { userId: token?.sub })
     },
+  },
+  // Add debugging for OAuth errors
+  logger: {
+    error(code, metadata) {
+      console.error('NextAuth Error:', code, metadata)
+    },
+    warn(code) {
+      console.warn('NextAuth Warning:', code)
+    },
+    debug(code, metadata) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log('NextAuth Debug:', code, metadata)
+      }
+    }
   },
   session: {
     strategy: 'jwt',
